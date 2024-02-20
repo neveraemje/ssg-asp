@@ -3,25 +3,429 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --primary-color: #0070f3;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  background-color: #fff;
+  color: #000;
+}
+
+/* App.css */
+.toggle-list {
+  border: 1px solid #ccc;
+  margin: 10px;
+  padding: 10px;
+}
+
+.toggle-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+}
+
+.toggle-marker {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.toggle-marker.open::before {
+  content: '▶'; /* Closed marker */
+}
+
+.toggle-marker.closed::before {
+  content: '▼'; /* Open marker */
+}
+
+.toggle-content {
+  padding: 10px;
+}
+
+.title-bar {
+  @apply font-semibold text-gray-500 text-xs uppercase mb-4 tracking-wide dark:text-zinc-100;
+}
+
+
+.active-link {
+  @apply text-green-600 font-semibold dark:text-green-500 /* Set your desired active link color */
+}
+.nav-menu{
+  @apply text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-600 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent;
+}
+
+.list-bar {
+  @apply text-base font-[400] text-zinc-700 leading-normal py-1 hover:text-gray-800 cursor-pointer dark:text-zinc-100;
+}
+
+.link {
+  @apply text-base leading-5 cursor-pointer block border-l pl-4 -ml-px  py-1 border-transparent
+  text-gray-600 hover:border-gray-500 hover:text-gray-800 dark:text-zinc-200;
+}
+
+.fixed-sidebar {
+  position: fixed;
+  top: 92px; /* Adjust the top position as needed */
+  left: 0;
+  height: calc(100vh - 121px);
+  width: 284px;
+  display: block;
+  z-index: 1; /* Adjust the z-index to ensure it appears above other content if needed */
+  background-color: #fff; /* Add a background color if needed */
+  overflow-y: scroll; /* Add vertical scroll if the content overflows */
+}
+
+.hexa-preview {
+  @apply inline-block w-10 h-10 rounded-full border-2 border-zinc-100 dark:border-zinc-800;
+  
+}
+
+.gradient-preview {
+  @apply inline-block w-20 h-8 rounded-full border-2 border-zinc-100 dark:border-zinc-800;
+  
+}
+
+.output-block {
+  @apply px-6 py-3 bg-zinc-100/30 rounded-xl border border-gray-200 dark:border-zinc-700 dark:bg-zinc-700/30;
+}
+
+.prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+
+  @apply text-green-600 dark:text-green-400 font-medium
+}
+
+.prose :where(strong):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply dark:text-zinc-300 text-gray-700
+
+}
+
+/* .prose :where(th):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  @apply pl-4 uppercase text-sm tracking-wide;
+} */
+.prose :where(th:has(p)):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply pl-4 text-sm tracking-wide;
+}
+
+.prose :where(tbody tr):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+ 
+  @apply dark:border-b-zinc-700
+}
+
+.prose :where(tbody td):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  @apply align-top text-base;
+}
+.prose :where(tbody td, tfoot td):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  @apply pt-1 pr-4 pb-1 pl-4;
+}
+
+.prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply mt-2 mb-2 text-gray-700 text-base leading-[1.8] font-normal dark:text-zinc-300 ;
+  
+}
+
+.prose :where(img):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply rounded-xl border mt-4 border-gray-100 w-full h-full bg-cover dark:border-zinc-900;
+  
+}
+
+.prose :where(h1):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+ 
+
+  @apply text-3xl font-semibold leading-8 mb-4 mt-8 text-gray-700 dark:text-zinc-100;
+  
+}
+.prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply text-2xl font-semibold mt-10 mb-4  text-gray-700 dark:text-zinc-100;
+  
+}
+.prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply mt-6 font-semibold text-lg  text-gray-700 dark:text-zinc-100;
+  
+}
+
+.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply dark:text-zinc-200 dark:bg-zinc-700/30 dark:border-zinc-700
+  
+  font-light 
+  text-[13px]
+text-gray-800
+bg-gray-100
+border-gray-200 
+  px-[2px] py-[2px]
+  border 
+  rounded-md;
+  
+
+}
+.prose :where(code):not(:where([class~=not-prose] *)):before {
+  @apply content-none
+}
+
+.prose :where(code):not(:where([class~=not-prose] *)):after {
+  @apply content-none
+}
+
+.prose :where(hr):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+
+
+  @apply dark:border-zinc-700
+}
+
+
+.container {
+ 
+  margin: 0 auto;
+  padding: 0 1rem;
+  @apply max-w-screen-xl;
+}
+/* hover:text-gray-1000 relative flex w-full cursor-pointer items-center justify-between rounded-md py-1 pl-2 text-left te text-gray-900 */
+.nav-item {
+  @apply 
+  relative 
+  flex 
+  w-full 
+  cursor-pointer 
+  items-center 
+  justify-between 
+  rounded-md 
+  py-2 
+  pl-2 
+  text-left 
+  text-sm
+text-gray-700 
+  border-transparent
+hover:text-gray-950 
+hover:border-gray-950
+dark:text-zinc-100;
+}
+
+
+.child-line {
+  @apply px-0.5 last-of-type:mb-0 mr-6 border-l border-gray-200 pl-3;
+}
+
+.sidebar {
+@apply sticky top-[121px] hidden h-[calc(100vh-121px)] w-[284px] md:flex md:shrink-0 md:flex-col md:justify-between;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: blue;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+
+
+
+
+/* Define a two-column layout with equal-width columns */
+.columnLayout.two-equal {
+  @apply flex flex-wrap space-x-6;
+}
+
+/* Style for individual cells within the two-equal layout */
+.columnLayout.two-equal .cell.normal {
+  flex: 1;
+  margin-right: 10px; /* Add margin between columns */
+}
+
+/* Style for inner cells (h3 elements) within the two-equal layout */
+.columnLayout.two-equal .cell.normal .innerCell {
+  /* Add your inner cell styles here */
+}
+
+/* Style for h3 elements inside inner cells within the two-equal layout */
+.columnLayout.two-equal .cell.normal .innerCell h3 {
+  @apply my-1 text-lg;
+}
+
+.columnLayout.two-equal .cell.normal .innerCell img {
+ @apply mb-3 mt-6;
+}
+
+::selection {
+@apply bg-sky-500 text-white;
+}
+
+
+
+
+/* Rotating logo */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+
+@keyframes rotating {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+.rotating {
+  animation: rotating 12s linear infinite;
+}
+
+
+
+
+
+
+
+/* Toggle */
+.bg-move {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: transform 0.5s ease; /* Adjust the transition duration for moderate speed */
+}
+
+.bg-move.active {
+  transform: translateX(100%); /* Adjust the animation direction as needed */
+}
+
+input:checked {
+  @apply bg-green-700
+  }
+
+  input:checked ~ span:last-child {
+    --tw-translate-x: 1.2rem; /* translate-x-7 */
+  }
+
+
+
+
+
+
+
+
+  /* Floating button */
+  .switches-container {
+    @apply w-[188px] h-11  flex p-0 relative bg-white shadow  leading-10 rounded-full mx-auto mt-4;
+  
+    /* @apply w-[188px] h-11 p-2 bg-white rounded-[22px] shadow justify-center items-center gap-1 inline-flex rel */
+  }
+  
+  /* input (radio) for toggling. hidden - use labels for clicking on */
+  .switches-container input {
+    @apply hidden absolute top-0
+  }
+  
+  /* labels for the input (radio) boxes - something to click on */
+  .switches-container label {
+    @apply w-full py-1 m-2 text-center cursor-pointer text-neutral-500 text-sm font-semibold rounded-full h-[28px] hover:bg-neutral-100
+     
+  }
+  
+  /* switch highlighters wrapper (sliding left / right) 
+      - need wrapper to enable the even margins around the highlight box
+  */
+  .switch-wrapper {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      padding: 0.15rem;
+      z-index: 3;
+      transition: transform .5s cubic-bezier(.77, 0, .175, 1);
+      /* transition: transform 1s; */
+  }
+  
+  /* switch box highlighter */
+  .switch {
+    @apply mx-1.5 my-1.5 w-auto rounded-full h-[28px] bg-green-700 justify-center
+   
+  }
+  
+  .switch div {
+    @apply w-full text-center opacity-0 block text-white transition-opacity duration-200 ease-in-out delay-100 absolute top-0 left-0 text-sm font-semibold py-[12px]
+    
+  }
+  
+  /* slide the switch box from right to left */
+  .switches-container input:nth-of-type(1):checked~.switch-wrapper {
+      transform: translateX(0%);
+  }
+  
+  /* slide the switch box from left to right */
+  .switches-container input:nth-of-type(2):checked~.switch-wrapper {
+      transform: translateX(100%);
+  }
+  
+  /* toggle the switch box labels - first checkbox:checked - show first switch div */
+  .switches-container input:nth-of-type(1):checked~.switch-wrapper .switch div:nth-of-type(1) {
+      opacity: 1;
+  }
+  
+  /* toggle the switch box labels - second checkbox:checked - show second switch div */
+  .switches-container input:nth-of-type(2):checked~.switch-wrapper .switch div:nth-of-type(2) {
+      opacity: 1;
+  }
+  
+
+ /* Ring logo rotate */
+ .ring-text {
+  animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(-360deg);
+  } to {
+    transform: rotate(0deg);
+  }
+}
+  
+
+
+/* SLIDER */
+.track_drag {
+
+
+  @apply bg-green-700 rounded-full w-[393px] h-[56px] flex items-center absolute overflow-hidden touch-none;
+}
+
+#item {
+  @apply bg-white w-[64px] h-[48px] rounded-full pl-2 mx-1 bg-[url('/skip.svg')] hover:cursor-move shadow-md bg-center bg-no-repeat z-[999] touch-none select-none justify-self-start ;
+
+  background-size: 50% 50%;
+
+
+}
+
+.track_text {
+  @apply text-base text-white font-semibold absolute top-0 left-2 m-0 flex justify-center items-center h-[100%] w-[100%];
+
+
+
+}
+.track_text--before { opacity: 1; }
+.track_text--after { opacity: 0; }
+.track_text--end { opacity: 0; }
+
+.animate {
+  transition: 
+    transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    opacity 0.5s ease-in,
+    background-color 0.5s ease-in;
 }

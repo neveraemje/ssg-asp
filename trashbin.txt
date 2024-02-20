@@ -1,0 +1,1561 @@
+
+// https://firebasestorage.googleapis.com/v0/b/asphalt-storage.appspot.com/o/images/2861499487%2Fcover.png%3Fversion%3D4%26amp%3BmodificationDate%3D1703131297269%26amp%3BcacheVersion%3D1%26amp%3Bapi%3Dv2?alt=media
+// https://firebasestorage.googleapis.com/v0/b/asphalt-storage.appspot.com/o/images%2F2928443872%2Fcover.png?alt=media&token=7214504b-71e4-4102-93ab-bb55698e55af
+// https://firebasestorage.googleapis.com/v0/b/asphalt-storage.appspot.com/o/images/2861499487%2F?alt=media
+//  https://firebasestorage.googleapis.com/v0/b/asphalt-storage.appspot.com/o/images/2861499487/cover.png?alt=media
+ 
+&token=7214504b-71e4-4102-93ab-bb55698e55af
+ 
+.replace(/%2F/g, '/'); // Replace %2F with /
+ 
+/(?<=images)\/+/g, '%2F'
+ 
+i
+ 
+export const ReplaceAttachment = (text, id) => {
+  const localImagePath = `/images/${id}`;
+
+  // Handle image attachments
+  text = text.replace(/<img\s+[^>]*src=("[^"]+"|'[^']+'|[^"'>]+)[^>]*>/g, (match, src) => {
+    const srcValue = src.replace(/['"]+/g, ""); // Remove surrounding quotes
+
+    // Return the original image tag if srcValue is undefined or not a local path
+    if (!srcValue || !srcValue.startsWith('https://go-jek.atlassian.net')) {
+      return match;
+    }
+
+    try {
+      // Remove any query parameters from the src
+      const srcWithoutParams = srcValue.split('?')[0];
+
+      // Extract the file name from the src
+      const fileName = srcWithoutParams.substring(srcWithoutParams.lastIndexOf('/') + 1);
+
+      // Construct the Firebase Storage URL with proper encoding
+      const encodedLocalImagePath = encodeURIComponent(localImagePath).replace(/%2F/g, '/'); // Replace %2F with /
+      const encodedFileName = encodeURIComponent(fileName);
+      const firebaseStorageURL = `https://firebasestorage.googleapis.com/v0/b/asphalt-storage.appspot.com/o${encodedLocalImagePath}%2F${encodedFileName}?alt=media`;
+
+      // Return the image tag with the Firebase Storage URL
+      return `<img src="${firebaseStorageURL}" alt="${fileName}" loading="lazy" />`;
+    } catch (error) {
+      console.error('Error replacing image:', error);
+      return match; // Return the original image tag if replacement fails
+    }
+  });
+
+  return text;
+};
+ 
+export const ReplaceAttachment = (text, id) => {
+  const localImagePath = `/images/${id}`;
+
+  // Handle image attachments
+  text = text.replace(/<img\s+[^>]*src=("[^"]+"|'[^']+'|[^"'>]+)[^>]*>/g, (match, src) => {
+    const srcValue = src.replace(/['"]+/g, ""); // Remove surrounding quotes
+
+    // Return the original image tag if srcValue is undefined or not a local path
+    if (!srcValue || !srcValue.startsWith('https://go-jek.atlassian.net')) {
+      return match;
+    }
+
+    try {
+      // Extract the file name from the src
+      const fileName = srcValue.substring(srcValue.lastIndexOf('/') + 1);
+
+      // Construct the Firebase Storage URL with proper encoding
+      const encodedLocalImagePath = encodeURIComponent(localImagePath).replace(/%2F/g, '/'); // Replace %2F with /
+      const encodedFileName = encodeURIComponent(fileName);
+      const firebaseStorageURL = `https://firebasestorage.googleapis.com/v0/b/asphalt-storage.appspot.com/o${encodedLocalImagePath}%2F${encodedFileName}?alt=media`;
+
+      // Return the image tag with the Firebase Storage URL
+      return `<img src="${firebaseStorageURL}" alt="${fileName}" loading="lazy" />`;
+    } catch (error) {
+      console.error('Error replacing image:', error);
+      return match; // Return the original image tag if replacement fails
+    }
+  });
+
+  return text;
+};
+ 
+{encodedFileName}
+ 
+export const ReplaceAttachment = (text, id) => {
+  const firebaseImageUrl = `https://firebasestorage.googleapis.com/v0/b/asphalt-storage.appspot.com/o/images%2F${id}%2F`;
+
+  // Handle image attachments
+  text = text.replace(/<img\s+[^>]*src=("[^"]+"|'[^']+'|[^"'>]+)[^>]*>/g, (match, src) => {
+    const srcValue = src.replace(/['"]+/g, ""); // Remove surrounding quotes
+    const imageFileName = srcValue.substring(srcValue.lastIndexOf('/') + 1); // Extract the file name
+
+    // Define the firebase image URL
+    const firebaseImageUrlWithPath = firebaseImageUrl + imageFileName;
+
+    // Check if the image source includes Confluence domain and matches the pattern
+    if (srcValue.includes("atlassian.net") && srcValue.includes(`/thumbnails/${id}/${imageFileName}`)) {
+      return match.replace(srcValue, firebaseImageUrlWithPath);
+    }
+    
+    return match;
+  });
+
+  // Handle video attachments
+  text = text.replace(/<a\s+[^>]*href=("([^"]+\/download\/attachments\/[^"]+)")[^>]*>(.*?)<\/a>/g, (match, videoLink, videoSrc, text) => {
+    const videoFileName = videoSrc.split('/').pop(); // Extract the video file name
+
+    // Define the firebase video URL
+    const firebaseVideoUrlWithPath = firebaseImageUrl + videoFileName;
+
+    // Check if the video source includes Confluence domain and matches the pattern
+    if (videoSrc.includes("atlassian.net") && videoSrc.includes(`/thumbnails/${id}/${videoFileName}`)) {
+      return match.replace(videoSrc, firebaseVideoUrlWithPath);
+    }
+    
+    return match;
+  });
+
+  return text;
+};
+
+ 
+export const ReplaceAttachment = (text, id) => {
+  const firebaseImageUrl = `https://firebasestorage.googleapis.com/v0/b/asphalt-storage.appspot.com/o/images%2F${id}%2F`;
+
+  // Handle image attachments
+  text = text.replace(/<img\s+[^>]*src=("[^"]+"|'[^']+'|[^"'>]+)[^>]*>/g, (match, src) => {
+    const srcValue = src.replace(/['"]+/g, ""); // Remove surrounding quotes
+    const imageFileName = srcValue.substring(srcValue.lastIndexOf('/') + 1); // Extract the file name
+
+    // Define the firebase image URL
+    const firebaseImageUrlWithPath = firebaseImageUrl + imageFileName;
+
+    // Check if the image source includes Confluence domain and matches the pattern
+    if (srcValue.includes("atlassian.net") && srcValue.includes(`/thumbnails/${id}/${imageFileName}`)) {
+      return match.replace(srcValue, firebaseImageUrlWithPath);
+    }
+    
+    return match;
+  });
+
+  // Handle video attachments
+  text = text.replace(/<a\s+[^>]*href=("([^"]+\/download\/attachments\/[^"]+)")[^>]*>(.*?)<\/a>/g, (match, videoLink, videoSrc, text) => {
+    const videoFileName = videoSrc.split('/').pop(); // Extract the video file name
+
+    // Define the firebase video URL
+    const firebaseVideoUrlWithPath = firebaseImageUrl + videoFileName;
+
+    // Check if the video source includes Confluence domain and matches the pattern
+    if (videoSrc.includes("atlassian.net") && videoSrc.includes(`/thumbnails/${id}/${videoFileName}`)) {
+      return match.replace(videoSrc, firebaseVideoUrlWithPath);
+    }
+    
+    return match;
+  });
+
+  return text;
+};
+
+ 
+export const ReplaceAttachment = (text, id) => {
+  const firebaseImageUrl = `https://firebasestorage.googleapis.com/v0/b/asphalt-storage.appspot.com/o/images%2F${id}%2F`;
+
+  // Handle image attachments
+  text = text.replace(/<img\s+[^>]*src=("[^"]+"|'[^']+'|[^"'>]+)[^>]*>/g, (match, src) => {
+    const srcValue = src.replace(/['"]+/g, ""); // Remove surrounding quotes
+    const imageFileName = srcValue.substring(srcValue.lastIndexOf('/') + 1); // Extract the file name
+
+    // Define the firebase image URL
+    const firebaseImageUrlWithPath = firebaseImageUrl + imageFileName;
+
+    // Replace the content URL with the firebase image URL if the folder and file name match
+    if (srcValue.includes(`/thumbnails/${id}/${imageFileName}`)) {
+      return match.replace(srcValue, firebaseImageUrlWithPath);
+    }
+    
+    return match;
+  });
+
+  // Handle video attachments
+  text = text.replace(/<a\s+[^>]*href=("([^"]+\/download\/attachments\/[^"]+)")[^>]*>(.*?)<\/a>/g, (match, videoLink, videoSrc, text) => {
+    const videoFileName = videoSrc.split('/').pop(); // Extract the video file name
+
+    // Define the firebase video URL
+    const firebaseVideoUrlWithPath = firebaseImageUrl + videoFileName;
+
+    // Replace the content URL with the firebase video URL if the folder and file name match
+    if (videoSrc.includes(`/thumbnails/${id}/${videoFileName}`)) {
+      return match.replace(videoSrc, firebaseVideoUrlWithPath);
+    }
+    
+    return match;
+  });
+
+  return text;
+};
+
+ 
+import { useState, useEffect } from 'react';
+import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
+import app from '@/firebaseConfig';
+
+const storage = getStorage(app);
+
+function MyComponent() {
+  const [fileURLs, setFileURLs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchFiles() {
+      try {
+        const rootRef = ref(storage, '/');
+        const filesList = await listAll(rootRef);
+
+        const urlsPromises = filesList.items.map(async (item) => {
+          const url = await getDownloadURL(item);
+          return url;
+        });
+
+        const urls = await Promise.all(urlsPromises);
+        setFileURLs(urls);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching files:', error);
+        setError(error.message);
+        setLoading(false);
+      }
+    }
+
+    fetchFiles();
+  }, []);
+
+  return (
+    <div>
+      {loading ? (
+        <p>Loading files...</p>
+      ) : error ? (
+        <p>Error: {error}</p>
+      ) : (
+        <div>
+          {fileURLs.length > 0 ? (
+            fileURLs.map((url, index) => (
+              <div key={index}>
+                <p>File {index + 1} is ready to view:</p>
+                <img src={url} alt={`Image ${index + 1}`} width="600" height="400" />
+              </div>
+            ))
+          ) : (
+            <p>No files found.</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default MyComponent;
+ 
+import { useState, useEffect } from 'react';
+import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
+import app from '@/firebaseConfig';
+
+const storage = getStorage(app);
+
+function MyComponent() {
+  const [fileURLs, setFileURLs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchFiles() {
+      try {
+        const rootRef = ref(storage, 'images/');
+        const filesList = await listAll(rootRef);
+
+        const urlsPromises = filesList.items.map(async (item) => {
+          const url = await getDownloadURL(item);
+          return url;
+        });
+
+        const urls = await Promise.all(urlsPromises);
+        setFileURLs(urls);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching files:', error);
+        setLoading(false);
+      }
+    }
+
+    fetchFiles();
+  }, []);
+
+  return (
+    <div>
+      {loading ? (
+        <p>Loading files...</p>
+      ) : (
+        <div>
+          {fileURLs.length > 0 ? (
+            fileURLs.map((url, index) => (
+              <div key={index}>
+                <p>File {index + 1} is ready to view:</p>
+                <img src={url} alt={`Image ${index + 1}`} width="600" height="400" />
+              </div>
+            ))
+          ) : (
+            <p>No files found.</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default MyComponent;
+
+
+
+ 
+"use client"
+import { useState, useEffect } from 'react';
+import { getStorage, ref, getDownloadURL, listAll } from 'firebase/storage';
+import app from '@/firebaseConfig';
+
+const storage = getStorage(app);
+
+function MyComponent() {
+  const [fileURLs, setFileURLs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchFiles() {
+      try {
+        const fileList = await listAll(ref(storage, '/images')); // Change '/images' to your desired directory path
+        const urls = await Promise.all(
+          fileList.items.slice(0, 10).map(async (item) => { // Fetch first 10 items
+            const url = await getDownloadURL(item);
+            return url;
+          })
+        );
+        setFileURLs(urls);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching files:', error);
+        setLoading(false);
+      }
+    }
+
+    fetchFiles();
+  }, []);
+
+  return (
+    <div>
+      {loading ? (
+        <p>Loading files...</p>
+      ) : (
+        <div>
+          {fileURLs.length > 0 ? (
+            fileURLs.map((url, index) => (
+              <div key={index}>
+                <p>File {index + 1} is ready to view:</p>
+                <img src={url} alt={`File ${index + 1}`} width="600" height="400" />
+              </div>
+            ))
+          ) : (
+            <p>No files found.</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default MyComponent;
+ 
+import { useState, useEffect } from 'react';
+import { getStorage, ref, getDownloadURL, listAll } from 'firebase/storage';
+import app from '@/firebaseConfig';
+
+const storage = getStorage(app);
+
+function MyComponent() {
+  const [fileURLs, setFileURLs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchFiles() {
+      try {
+        const fileList = await listAll(ref(storage, '/images')); // Change '/images' to your desired directory path
+        const urls = await Promise.all(
+          fileList.items.slice(0, 10).map(async (item) => { // Fetch first 10 items
+            const url = await getDownloadURL(item);
+            return url;
+          })
+        );
+        setFileURLs(urls);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching files:', error);
+        setLoading(false);
+      }
+    }
+
+    fetchFiles();
+  }, []);
+
+  return (
+    <div>
+      {loading ? (
+        <p>Loading files...</p>
+      ) : (
+        <div>
+          {fileURLs.map((url, index) => (
+            <div key={index}>
+              <p>File {index + 1} is ready to view:</p>
+              <img src={url} alt={`File ${index + 1}`} width="600" height="400" />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default MyComponent;
+ 
+import { useState, useEffect } from 'react';
+import { getStorage, ref, getDownloadURL, listAll } from 'firebase/storage';
+import app from '@/firebaseConfig';
+
+const storage = getStorage(app);
+
+function MyComponent() {
+  const [fileURLs, setFileURLs] = useState([]);
+
+  useEffect(() => {
+    async function fetchFiles() {
+      try {
+        const fileList = await listAll(ref(storage, '/images')); // Change '/images' to your desired directory path
+        const urls = await Promise.all(
+          fileList.items.map(async (item) => {
+            const url = await getDownloadURL(item);
+            return url;
+          })
+        );
+        setFileURLs(urls);
+      } catch (error) {
+        console.error('Error fetching files:', error);
+      }
+    }
+
+    fetchFiles();
+  }, []);
+
+  return (
+    <div>
+      {fileURLs.length > 0 ? (
+        <div>
+          {fileURLs.map((url, index) => (
+            <div key={index}>
+              <p>File {index + 1} is ready to view:</p>
+              <img src={url} alt={`File ${index + 1}`} width="600" height="400" />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>Loading files...</p>
+      )}
+    </div>
+  );
+}
+
+export default MyComponent;
+
+
+ 
+import * as FileType from 'file-type';
+
+ 
+async function uploadImageToFirebase(imageUrl, fileName, folderName) {
+  try {
+    const imageResponse = await fetch(imageUrl, {
+      headers: {
+        'Authorization': authHeader,
+        'Accept': 'application/json'
+      },
+    });
+
+    if (!imageResponse.ok) {
+      throw new Error(`Failed to fetch image ${fileName}`);
+    }
+
+    // Read the image response body as a buffer
+    const imageBuffer = await imageResponse.arrayBuffer();
+
+    // Detect the file type using file-type library
+    const fileType = await FileType.fromBuffer(imageBuffer);
+    const mimeType = fileType?.mime || 'application/octet-stream'; // fallback to octet-stream if MIME type is not detected
+
+    const storageRef = ref(storage, `images/${folderName}/${fileName}`); // Use folderName
+    const uploadTask = uploadBytesResumable(storageRef, imageBuffer);
+
+    return new Promise((resolve, reject) => {
+      uploadTask.on('state_changed', (snapshot) => {
+        // Handle state changes if needed
+      }, (error) => {
+        console.error('Error uploading image:', error);
+        reject(error);
+      }, async () => {
+        // Upload completed successfully, get the download URL
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        console.log('File uploaded to Firebase storage:', downloadURL);
+        resolve(downloadURL);
+      });
+    });
+  } catch (error) {
+    console.error('Error uploading image to Firebase:', error);
+    throw error;
+  }
+}
+ 
+import FileType from 'file-type';
+ 
+async function uploadImageToFirebase(imageUrl, fileName, folderName) {
+  try {
+    const imageResponse = await fetch(imageUrl, {
+      headers: {
+        'Authorization': authHeader,
+        'Accept': 'application/json'
+      },
+    });
+
+    if (!imageResponse.ok) {
+      throw new Error(`Failed to fetch image ${fileName}`);
+    }
+
+    // Read the image response body as an ArrayBuffer
+    const imageArrayBuffer = await imageResponse.arrayBuffer();
+    const imageBuffer = Buffer.from(imageArrayBuffer);
+
+    // Detect the file type using file-type library
+    const fileType = await FileType.fromBuffer(imageBuffer);
+    const mimeType = fileType.mime;
+
+    const storageRef = ref(storage, `images/${folderName}/${fileName}`); // Use folderName
+    const uploadTask = uploadBytesResumable(storageRef, imageBuffer);
+
+    return new Promise((resolve, reject) => {
+      uploadTask.on('state_changed', (snapshot) => {
+        // Handle state changes if needed
+      }, (error) => {
+        console.error('Error uploading image:', error);
+        reject(error);
+      }, async () => {
+        // Upload completed successfully, get the download URL
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        console.log('File uploaded to Firebase storage:', downloadURL);
+        resolve(downloadURL);
+      });
+    });
+  } catch (error) {
+    console.error('Error uploading image to Firebase:', error);
+    throw error;
+  }
+}
+ 
+
+import * as FileType from 'file-type';
+ 
+    const imageBuffer = await imageResponse.arrayBuffer();
+ 
+
+   
+ 
+   const imageArrayBuffer = await imageResponse.arrayBuffer();
+ 
+ const contentType = fileName.endsWith('.png') ? 'image/png' : 'application/octet-stream';
+ 
+        'Content-Type': 'image/png',
+ 
+// async function uploadImageToFirebase(imageUrl, fileName, folderName) {
+//   try {
+//     const imageResponse = await fetch(imageUrl, {
+//       headers: {
+//         'Authorization': authHeader,
+//       },
+//     });
+
+//     if (!imageResponse.ok) {
+//       throw new Error(`Failed to fetch image ${fileName}`);
+//     }
+
+//     const imageBlob = await imageResponse.blob();
+//     const storageRef = ref(storage, `images/${folderName}/${fileName}`); // Use folderName
+//     const uploadTask = uploadBytesResumable(storageRef, imageBlob);
+
+//     return new Promise((resolve, reject) => {
+//       uploadTask.on('state_changed', (snapshot) => {
+//         // Handle state changes if needed
+//       }, (error) => {
+//         console.error('Error uploading image:', error);
+//         reject(error);
+//       }, async () => {
+//         // Upload completed successfully, get the download URL
+//         const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+//         console.log('File uploaded to Firebase storage:', downloadURL);
+//         resolve(downloadURL);
+//       });
+//     });
+//   } catch (error) {
+//     console.error('Error uploading image to Firebase:', error);
+//     throw error;
+//   }
+// }
+ 
+2861499487/cover.png
+ 
+// Initialize Firebase app with your Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDHzHWkJv3P1zSziNjRYAbc4LscHp-Ky70",
+    authDomain: "asphalt-storage.firebaseapp.com",
+    projectId: "asphalt-storage",
+    storageBucket: "asphalt-storage.appspot.com",
+    messagingSenderId: "964775174995",
+    appId: "1:964775174995:web:84c5b0f43aacfe00f677a6"
+  };
+  const app = initializeApp(firebaseConfig);
+  
+  // Get a reference to the Firebase storage service
+ 
+
+const storage = getStorage();
+ 
+import { storage } from '@/firebaseConfig';
+ 
+export const ReplaceAttachment = (text, id) => {
+  const firebaseStorageUrl = 'https://firebasestorage.googleapis.com/v0/b/asphalt-storage.appspot.com/o';
+
+  // Handle image attachments
+  text = text.replace(/<img\s+[^>]*src=("[^"]+"|'[^']+'|[^"'>]+)[^>]*>/g, (match, src) => {
+    const srcValue = src.replace(/['"]+/g, ""); // Remove surrounding quotes
+    const imageFileName = srcValue.substring(srcValue.lastIndexOf('/') + 1); // Extract the file name
+    
+    // Construct the Firebase Storage URL for the image
+    const firebaseImageUrl = `${firebaseStorageUrl}/${srcValue.replace('/images/', 'images%2F').replace(/\//g, '%2F')}?alt=media`;
+
+    // Define different sizes for the srcset attribute (add more sizes as needed)
+    const sizes = "100w, 200w, 400w";
+
+    // Construct the srcset attribute with multiple image sources
+    const srcset = `${firebaseImageUrl} 100w,
+                    ${firebaseImageUrl.replace(/\.(jpg|jpeg|png|gif)$/i, '@2x.$1')} 200w,
+                    ${firebaseImageUrl.replace(/\.(jpg|jpeg|png|gif)$/i, '@4x.$1')} 400w`;
+
+    return `<img src="${firebaseImageUrl}" srcset="${srcset}" sizes="${sizes}" alt="${imageFileName}" loading="lazy" />`;
+  });
+
+  // Handle video attachments
+  text = text.replace(/<a\s+[^>]*href=("([^"]+\/download\/attachments\/[^"]+)")[^>]*>(.*?)<\/a>/g, (match, videoLink, videoSrc, text) => {
+    const videoFileName = videoSrc.split('/').pop(); // Extract the video file name
+
+    // Construct the Firebase Storage URL for the video
+    const firebaseVideoUrl = `${firebaseStorageUrl}/${videoSrc.replace(/%2F/g, '/')}?alt=media`;
+
+    return `<video controls src="${firebaseVideoUrl}" style="width: 100%;">${text}</video>`;
+  });
+
+  return text;
+};
+
+ 
+
+import { getDownloadURL, ref } from "firebase/storage";
+import { storage } from "../path/to/your/firebase-configuration"; // Import your Firebase configuration
+
+ 
+export const ReplaceAttachment = async (text, id) => {
+  const storageRef = ref(storage, `images/${id}`); // Reference to the folder in Firebase Storage
+
+  // Handle image attachments
+  text = text.replace(/<img\s+[^>]*src=("[^"]+"|'[^']+'|[^"'>]+)[^>]*>/g, async (match, src) => {
+    const srcValue = src.replace(/['"]+/g, ""); // Remove surrounding quotes
+    const imageFileName = srcValue.substring(srcValue.lastIndexOf('/') + 1); // Extract the file name
+
+    // Define the path to the image in Firebase Storage
+    const imageRef = ref(storageRef, imageFileName);
+
+    try {
+      // Get the download URL of the image
+      const downloadURL = await getDownloadURL(imageRef);
+
+      // Construct the image tag with the download URL
+      return `<img src="${downloadURL}" alt="${imageFileName}" loading="lazy" />`;
+    } catch (error) {
+      console.error("Error retrieving image from Firebase Storage:", error);
+      // If an error occurs, return the original image tag
+      return match;
+    }
+  });
+
+  // Handle video attachments - You can add your logic here
+
+  return text;
+};
+ 
+
+export const ReplaceAttachment = async (text, id) => {
+  const storageRef = ref(storage); // Reference to your Firebase Storage root
+
+  // Handle image attachments
+  text = text.replace(/<img\s+[^>]*src=("[^"]+"|'[^']+'|[^"'>]+)[^>]*>/g, async (match, src) => {
+    const srcValue = src.replace(/['"]+/g, ""); // Remove surrounding quotes
+    const imageFileName = srcValue.substring(srcValue.lastIndexOf('/') + 1); // Extract the file name
+
+    // Define the path to the image in Firebase Storage
+    const imageRef = ref(storageRef, `images/${id}/${imageFileName}`);
+
+    try {
+      // Get the download URL of the image
+      const downloadURL = await getDownloadURL(imageRef);
+
+      // Construct the image tag with the download URL
+      return `<img src="${downloadURL}" alt="${imageFileName}" loading="lazy" />`;
+    } catch (error) {
+      console.error("Error retrieving image from Firebase Storage:", error);
+      // If an error occurs, return the original image tag
+      return match;
+    }
+  });
+
+  // Handle video attachments - You can add your logic here
+
+  return text;
+};
+ 
+// export const ReplaceAttachment = (text, id) => {
+//     return text.replace(/<img\s+[^>]*src=("[^"]+"|'[^']+'|[^"'>]+)[^>]*>/g, (match, src) => {
+//       const srcValue = src.replace(/['"]+/g, ""); // Remove surrounding quotes
+//       const imageFileName = srcValue.substring(srcValue.lastIndexOf('/') + 1); // Extract the file name
+  
+//       // Define the local image path based on the file name and 'id'
+//       const localImagePath = `/images/${id}/${imageFileName}`;
+  
+//       return `<img src="${localImagePath}" alt="${imageFileName}" />`;
+//     });
+//   };
+
+// export const ReplaceAttachment = (text, id) => {
+//   const localImagePath = `/images/${id}`;
+
+//   // Handle image attachments
+//   text = text.replace(/<img\s+[^>]*src=("[^"]+"|'[^']+'|[^"'>]+)[^>]*>/g, (match, src) => {
+//     const srcValue = src.replace(/['"]+/g, ""); // Remove surrounding quotes
+//     const imageFileName = srcValue.substring(srcValue.lastIndexOf('/') + 1); // Extract the file name
+
+//     // Define the local image path based on the file name and 'id'
+//     const localImageSrc = `${localImagePath}/${imageFileName}`;
+    
+
+//     return `<img src="${localImageSrc}" alt="${imageFileName}" />`;
+//   });
+
+//   // Handle video attachments
+//   text = text.replace(/<a\s+[^>]*href=("([^"]+\/download\/attachments\/[^"]+)")[^>]*>(.*?)<\/a>/g, (match, videoLink, videoSrc, text) => {
+//     const videoFileName = videoSrc.split('/').pop(); // Extract the video file name
+
+//     // Define the local video path based on the file name and 'id'
+//     const localVideoSrc = `${localImagePath}/${videoFileName}`;
+
+//     return `<video controls src="${localVideoSrc}"  style="width: 100%;">${text}</video>`;
+//   });
+
+//   return text;
+// };
+ 
+async function uploadImageToFirebase(imageUrl, fileName, folderName) {
+  try {
+    const imageResponse = await fetch(imageUrl, {
+      headers: {
+        'Authorization': authHeader,
+      },
+    });
+
+    if (!imageResponse.ok) {
+      throw new Error(`Failed to fetch image ${fileName}`);
+    }
+
+    // Read the image response body as buffer
+    const imageBuffer = await imageResponse.buffer();
+
+    const storageRef = ref(storage, `images/${folderName}/${fileName}`); // Use folderName
+    const uploadTask = uploadBytesResumable(storageRef, imageBuffer);
+
+    return new Promise((resolve, reject) => {
+      uploadTask.on('state_changed', (snapshot) => {
+        // Handle state changes if needed
+      }, (error) => {
+        console.error('Error uploading image:', error);
+        reject(error);
+      }, async () => {
+        // Upload completed successfully, get the download URL
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        console.log('File uploaded to Firebase storage:', downloadURL);
+        resolve(downloadURL);
+      });
+    });
+  } catch (error) {
+    console.error('Error uploading image to Firebase:', error);
+    throw error;
+  }
+}
+ 
+async function uploadImageToFirebase(imageUrl, fileName) {
+  try {
+    const imageResponse = await fetch(imageUrl, {
+      headers: {
+        'Authorization': authHeader,
+      },
+    });
+
+    if (!imageResponse.ok) {
+      throw new Error(`Failed to fetch image ${fileName}`);
+    }
+
+    const imageBlob = await imageResponse.blob();
+    const storageRef = ref(storage, `images/${fileName}`);
+    const uploadTask = uploadBytesResumable(storageRef, imageBlob);
+
+    return new Promise((resolve, reject) => {
+      uploadTask.on('state_changed', (snapshot) => {
+        // Handle state changes if needed
+      }, (error) => {
+        console.error('Error uploading image:', error);
+        reject(error);
+      }, async () => {
+        // Upload completed successfully, get the download URL
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        console.log('File uploaded to Firebase storage:', downloadURL);
+        resolve(downloadURL);
+      });
+    });
+  } catch (error) {
+    console.error('Error uploading image to Firebase:', error);
+    throw error;
+  }
+}
+
+async function fetchAttachments(childPageId) {
+  try {
+    const attachmentsResponse = await fetch(
+      `https://${domain}.atlassian.net/wiki/api/v2/pages/${childPageId}/attachments`,
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': authHeader,
+          'Accept': 'application/json',
+        },
+      }
+    );
+
+    if (!attachmentsResponse.ok) {
+      throw new Error(`Failed to fetch attachments for child page ${childPageId}`);
+    }
+
+    const attachmentsData = await attachmentsResponse.json();
+
+    const uploadPromises = attachmentsData.results.map(async (attachment) => {
+      const imageUrl = `https://${domain}.atlassian.net/wiki${attachment._links.download}`;
+      return uploadImageToFirebase(imageUrl, attachment.title);
+    });
+
+    return Promise.all(uploadPromises);
+  } catch (error) {
+    console.error(`Error fetching and uploading attachments for child page ${childPageId}:`, error);
+    throw error;
+  }
+}
+
+ 
+async function uploadImageToFirebase(imageUrl, fileName) {
+  try {
+    const imageResponse = await fetch(imageUrl, {
+      headers: {
+        'Authorization': authHeader,
+      },
+    });
+
+    if (!imageResponse.ok) {
+      throw new Error(`Failed to fetch image ${fileName}`);
+    }
+
+    const imageBlob = await imageResponse.blob();
+    const storageRef = ref(storage, `images/${fileName}`);
+    const uploadTask = uploadBytesResumable(storageRef, imageBlob);
+
+    return new Promise((resolve, reject) => {
+      uploadTask.on('state_changed', (snapshot) => {
+        // Handle state changes if needed
+      }, (error) => {
+        console.error('Error uploading image:', error);
+        reject(error);
+      }, async () => {
+        // Upload completed successfully, get the download URL
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        console.log('File uploaded to Firebase storage:', downloadURL);
+        resolve(downloadURL);
+      });
+    });
+  } catch (error) {
+    console.error('Error uploading image to Firebase:', error);
+    throw error;
+  }
+}
+
+// Fetch attachments and upload them to Firebase storage for a given child page
+async function fetchAttachments(childPageId) {
+  try {
+    const attachmentsResponse = await fetch(
+      `https://${domain}.atlassian.net/wiki/api/v2/pages/${childPageId}/attachments`,
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': authHeader,
+          'Accept': 'application/json',
+        },
+      }
+    );
+
+    if (!attachmentsResponse.ok) {
+      throw new Error(`Failed to fetch attachments for child page ${childPageId}`);
+    }
+
+    const attachmentsData = await attachmentsResponse.json();
+
+    const uploadPromises = attachmentsData.results.map(async (attachment) => {
+      const imageUrl = `https://${domain}.atlassian.net/wiki${attachment._links.download}`;
+      return uploadImageToFirebase(imageUrl, attachment.title);
+    });
+
+    return Promise.all(uploadPromises);
+  } catch (error) {
+    console.error(`Error fetching attachments for child page ${childPageId}:`, error);
+    throw error;
+  }
+}
+
+
+// Fetch attachments and upload them to Firebase storage
+
+
+ 
+
+
+// Fetch attachments and upload them to Firebase storage
+
+
+ 
+async function uploadImageToFirebase(imageUrl, fileName) {
+  try {
+    const imageResponse = await fetch(imageUrl, {
+      headers: {
+        'Authorization': authHeader,
+      },
+    });
+
+    if (!imageResponse.ok) {
+      throw new Error(`Failed to fetch image ${fileName}`);
+    }
+
+    const imageBlob = await imageResponse.blob();
+    const storageRef = ref(storage, `images/${fileName}`);
+    const uploadTask = uploadBytesResumable(storageRef, imageBlob);
+
+    return new Promise((resolve, reject) => {
+      uploadTask.on('state_changed', (snapshot) => {
+        // Handle state changes if needed
+      }, (error) => {
+        console.error('Error uploading image:', error);
+        reject(error);
+      }, async () => {
+        // Upload completed successfully, get the download URL
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        console.log('File uploaded to Firebase storage:', downloadURL);
+        resolve(downloadURL);
+      });
+    });
+  } catch (error) {
+    console.error('Error uploading image to Firebase:', error);
+    throw error;
+  }
+}
+
+// Fetch attachments and upload them to Firebase storage for a given child page
+async function fetchAttachments(childPageId) {
+  try {
+    const attachmentsResponse = await fetch(
+      `https://${domain}.atlassian.net/wiki/api/v2/pages/${childPageId}/attachments`,
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': authHeader,
+          'Accept': 'application/json',
+        },
+      }
+    );
+
+    if (!attachmentsResponse.ok) {
+      throw new Error(`Failed to fetch attachments for child page ${childPageId}`);
+    }
+
+    const attachmentsData = await attachmentsResponse.json();
+
+    const uploadPromises = attachmentsData.results.map(async (attachment) => {
+      const imageUrl = `https://${domain}.atlassian.net/wiki${attachment._links.download}`;
+      return uploadImageToFirebase(imageUrl, attachment.title);
+    });
+
+    return Promise.all(uploadPromises);
+  } catch (error) {
+    console.error(`Error fetching attachments for child page ${childPageId}:`, error);
+    throw error;
+  }
+}
+
+ 
+async function uploadImageToFirebase(imageUrl, fileName) {
+  try {
+    const imageResponse = await fetch(imageUrl, {
+      headers: {
+        'Authorization': authHeader,
+      },
+    });
+
+    if (!imageResponse.ok) {
+      throw new Error(`Failed to fetch image ${fileName}`);
+    }
+
+    const imageBlob = await imageResponse.blob();
+    const storageRef = ref(storage, `images/${fileName}`);
+    const uploadTask = uploadBytesResumable(storageRef, imageBlob);
+
+    return new Promise((resolve, reject) => {
+      uploadTask.on('state_changed', (snapshot) => {
+        // Handle state changes if needed
+      }, (error) => {
+        console.error('Error uploading image:', error);
+        reject(error);
+      }, async () => {
+        // Upload completed successfully, get the download URL
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        console.log('File uploaded to Firebase storage:', downloadURL);
+        resolve(downloadURL);
+      });
+    });
+  } catch (error) {
+    console.error('Error uploading image to Firebase:', error);
+    throw error;
+  }
+}
+
+// Fetch attachments and upload them to Firebase storage for a given child page
+async function fetchAttachments(childPageId) {
+  try {
+    const attachmentsResponse = await fetch(
+      `https://${domain}.atlassian.net/wiki/api/v2/pages/${childPageId}/attachments`,
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': authHeader,
+          'Accept': 'application/json',
+        },
+      }
+    );
+
+    if (!attachmentsResponse.ok) {
+      throw new Error(`Failed to fetch attachments for child page ${childPageId}`);
+    }
+
+    const attachmentsData = await attachmentsResponse.json();
+
+    const uploadPromises = attachmentsData.results.map(async (attachment) => {
+      const imageUrl = `https://${domain}.atlassian.net/wiki${attachment._links.download}`;
+      return uploadImageToFirebase(imageUrl, attachment.title);
+    });
+
+    return Promise.all(uploadPromises);
+  } catch (error) {
+    console.error(`Error fetching attachments for child page ${childPageId}:`, error);
+    throw error;
+  }
+}
+ 
+
+async function uploadImageToFirebase(imageUrl, fileName) {
+  try {
+    const imageResponse = await fetch(imageUrl, {
+      headers: {
+        'Authorization': authHeader,
+      },
+    });
+
+    if (!imageResponse.ok) {
+      throw new Error(`Failed to fetch image ${fileName}`);
+    }
+
+    const imageBlob = await imageResponse.blob();
+    const storageRef = ref(storage, `images/${fileName}`);
+    const uploadTask = uploadBytesResumable(storageRef, imageBlob);
+
+    return new Promise((resolve, reject) => {
+      uploadTask.on('state_changed', (snapshot) => {
+        // Handle state changes if needed
+      }, (error) => {
+        console.error('Error uploading image:', error);
+        reject(error);
+      }, async () => {
+        // Upload completed successfully, get the download URL
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        console.log('File uploaded to Firebase storage:', downloadURL);
+        resolve(downloadURL);
+      });
+    });
+  } catch (error) {
+    console.error('Error uploading image to Firebase:', error);
+    throw error;
+  }
+}
+
+// Fetch attachments and upload them to Firebase storage for a given child page
+async function fetchAttachments(childPageId) {
+  try {
+    const attachmentsResponse = await fetch(
+      `https://${domain}.atlassian.net/wiki/api/v2/pages/${childPageId}/attachments`,
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': authHeader,
+          'Accept': 'application/json',
+        },
+      }
+    );
+
+    if (!attachmentsResponse.ok) {
+      throw new Error(`Failed to fetch attachments for child page ${childPageId}`);
+    }
+
+    const attachmentsData = await attachmentsResponse.json();
+
+    const uploadPromises = attachmentsData.results.map(async (attachment) => {
+      const imageUrl = `https://${domain}.atlassian.net/wiki${attachment._links.download}`;
+      return uploadImageToFirebase(imageUrl, attachment.title);
+    });
+
+    return Promise.all(uploadPromises);
+  } catch (error) {
+    console.error(`Error fetching attachments for child page ${childPageId}:`, error);
+    throw error;
+  }
+}
+
+// Fetch attachments and upload them to Firebase storage
+
+
+
+
+export async function GET(req, res) {
+  try {
+    const timestamp = new Date().getTime();
+    const childPagesResponse = await fetch(
+      `https://${domain}.atlassian.net/wiki/rest/api/content/${page_id}/child/page?timestamp=${timestamp}&limit=50`,
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': authHeader,
+          'Accept': 'application/json',
+          // 'Cache-Control': 'no-cache, must-revalidate',
+        },
+      }
+    );
+
+    const childPagesData = await childPagesResponse.json();
+    
+    const childPagePromises = childPagesData.results.map(async (childPage) => {
+      const contentResponse = await fetch(
+        `https://${domain}.atlassian.net/wiki/rest/api/content/${childPage.id}?expand=body.view`,
+        {
+          method: 'GET',
+          headers: {
+            'Authorization': authHeader,
+            'Accept': 'application/json',
+            // 'Cache-Control': 'no-cache, must-revalidate',
+          },
+        }
+      );
+
+      const content = await contentResponse.json();
+      await fetchAttachments(childPage.id);
+
+      return { ...content };
+    });
+
+    const allChildPageContent = await Promise.all(childPagePromises);
+    return NextResponse.json(allChildPageContent);
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}
+ 
+async function fetchAttachments(childPageId) {
+  try {
+    const attachmentsResponse = await fetch(
+      `https://${domain}.atlassian.net/wiki/api/v2/pages/${childPageId}/attachments`,
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': authHeader,
+          'Accept': 'application/json',
+        },
+      }
+    );
+
+    if (!attachmentsResponse.ok) {
+      throw new Error(`Failed to fetch attachments for child page ${childPageId}`);
+    }
+
+    const attachmentsData = await attachmentsResponse.json();
+
+    const uploadPromises = attachmentsData.results.map(async (attachment) => {
+      const imageUrl = `https://${domain}.atlassian.net/wiki${attachment._links.download}`;
+      return uploadImageToFirebase(imageUrl, attachment.title);
+    });
+
+    return Promise.all(uploadPromises);
+  } catch (error) {
+    console.error(`Error fetching attachments for child page ${childPageId}:`, error);
+    throw error;
+  }
+}
+ 
+async function uploadImageToFirebase(imageUrl, fileName) {
+  try {
+    const imageResponse = await fetch(imageUrl, {
+      headers: {
+        'Authorization': authHeader,
+      },
+    });
+
+    if (!imageResponse.ok) {
+      throw new Error(`Failed to fetch image ${fileName}`);
+    }
+
+    const imageBlob = await imageResponse.blob();
+    const storageRef = ref(storage, `images/${fileName}`);
+    const uploadTask = uploadBytesResumable(storageRef, imageBlob);
+
+    return new Promise((resolve, reject) => {
+      uploadTask.on('state_changed', (snapshot) => {
+        // Handle state changes if needed
+      }, (error) => {
+        console.error('Error uploading image:', error);
+        reject(error);
+      }, async () => {
+        // Upload completed successfully, get the download URL
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        console.log('File uploaded to Firebase storage:', downloadURL);
+        resolve(downloadURL);
+      });
+    });
+  } catch (error) {
+    console.error('Error uploading image to Firebase:', error);
+    throw error;
+  }
+}
+
+ 
+export async function GET(req, res) {
+  try {
+    const timestamp = new Date().getTime();
+    const childPagesResponse = await fetch(
+      `https://${domain}.atlassian.net/wiki/rest/api/content/${page_id}/child/page?timestamp=${timestamp}&limit=50`,
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': authHeader,
+          'Accept': 'application/json',
+        },
+      }
+    );
+
+    const childPagesData = await childPagesResponse.json();
+
+    const uploadPromises = [];
+
+    // Iterate through child pages and initiate uploading attachments for each page
+    for (const childPage of childPagesData.results) {
+      const uploadPromise = fetchAttachments(childPage.id);
+      uploadPromises.push(uploadPromise);
+    }
+
+    // Wait for all uploads to complete
+    await Promise.all(uploadPromises);
+
+    // Return a success response
+    return NextResponse.ok(); 
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}
+
+ 
+// Define your existing GET endpoint
+export async function GET(req, res) {
+  try {
+    const timestamp = new Date().getTime();
+    const childPagesResponse = await fetch(
+      `https://${domain}.atlassian.net/wiki/rest/api/content/${page_id}/child/page?timestamp=${timestamp}&limit=50`,
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': authHeader,
+          'Accept': 'application/json',
+        },
+      }
+    );
+
+    const childPagesData = await childPagesResponse.json();
+
+    // Array to hold promises for uploading attachments from all child pages
+    const uploadPromises = [];
+
+    // Iterate through child pages and initiate uploading attachments for each page
+    for (const childPage of childPagesData.results) {
+      const uploadPromise = fetchAttachments(childPage.id);
+      uploadPromises.push(uploadPromise);
+    }
+
+    // Wait for all uploads to complete
+    await Promise.all(uploadPromises);
+
+    // Return a success response
+    return NextResponse.ok(); // Changed this line
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}
+
+ 
+export async function GET(req, res) {
+  try {
+    const timestamp = new Date().getTime();
+    const childPagesResponse = await fetch(
+      `https://${domain}.atlassian.net/wiki/rest/api/content/${page_id}/child/page?timestamp=${timestamp}&limit=50`,
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': authHeader,
+          'Accept': 'application/json',
+        },
+      }
+    );
+
+    const childPagesData = await childPagesResponse.json();
+
+    const uploadTasks = [];
+    // Iterate through child pages and fetch attachments for each page
+    for (const childPage of childPagesData.results) {
+      const uploadTask = fetchAttachments(childPage.id);
+      uploadTasks.push(uploadTask);
+    }
+
+    // Wait for all uploads to complete
+    const downloadURLsArray = await Promise.all(uploadTasks);
+
+    // Return appropriate response
+    return NextResponse.json(downloadURLsArray);
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}
+ 
+import { NextResponse } from "next/server";
+import fetch from "node-fetch";
+import fs from "fs";
+import path from "path";
+import { storage } from "@/firebaseConfig";
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+const username = process.env.NEXT_PUBLIC_ATLASSIAN_USERNAME;
+const apiKey = process.env.NEXT_PUBLIC_ATLASSIAN_API_KEY;
+const domain = process.env.NEXT_PUBLIC_DOMAIN;
+const page_id = process.env.NEXT_PUBLIC_ID_GETTING;
+const authHeader = `Basic ${Buffer.from(`${username}:${apiKey}`).toString("base64")}`;
+
+const imageDirectory = path.join(process.cwd(), 'public', 'images');
+
+async function fetchAttachments(childPageId) {
+    try {
+        const attachmentsResponse = await fetch(
+            `https://${domain}.atlassian.net/wiki/api/v2/pages/${childPageId}/attachments`,
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': authHeader,
+                    'Accept': 'application/json',
+                },
+            }
+        );
+
+        if (!attachmentsResponse.ok) {
+            throw new Error(`Failed to fetch attachments for child page ${childPageId}`);
+        }
+
+        const attachmentsData = await attachmentsResponse.json();
+        const imageDirectoryPath = path.join(imageDirectory, childPageId.toString());
+
+        if (!fs.existsSync(imageDirectoryPath)) {
+            fs.mkdirSync(imageDirectoryPath, { recursive: true });
+        }
+
+        for (const attachment of attachmentsData.results) {
+            const filePath = path.join(imageDirectoryPath, attachment.title);
+
+            if (!fs.existsSync(filePath)) {
+                const baseUrl = `https://${domain}.atlassian.net/wiki`;
+                const imageUrl = `${baseUrl}${attachment._links.download}`;
+                const imageResponse = await fetch(imageUrl, {
+                    headers: {
+                        'Authorization': authHeader,
+                    },
+                });
+
+                if (imageResponse.ok) {
+                    const imageArrayBuffer = await imageResponse.arrayBuffer();
+                    const imageBuffer = Buffer.from(imageArrayBuffer);
+
+                    // Upload image to Firebase Storage
+                    const storageRef = ref(storage, `images/${attachment.title}`);
+                    const uploadTask = uploadBytes(storageRef, imageBuffer);
+
+                    uploadTask.then((snapshot) => {
+                      console.log('Upload completed successfully');
+                      getDownloadURL(storageRef).then((downloadURL) => {
+                          console.log('File available at', downloadURL);
+                      });
+                  }).catch((error) => {
+                      console.error('Error during upload:', error);
+                  });
+
+                    fs.writeFileSync(filePath, imageBuffer);
+                    console.log(`Downloaded ${attachment.title} for child page ${childPageId}`);
+                }
+            }
+        }
+    } catch (error) {
+        console.error(`Error fetching attachments for child page ${childPageId}:`, error);
+        return [];
+    }
+}
+
+export async function GET(req, res) {
+    try {
+        const timestamp = new Date().getTime();
+        const childPagesResponse = await fetch(
+            `https://${domain}.atlassian.net/wiki/rest/api/content/${page_id}/child/page?timestamp=${timestamp}&limit=50`,
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': authHeader,
+                    'Accept': 'application/json',
+                },
+            }
+        );
+
+        const childPagesData = await childPagesResponse.json();
+
+        const childPagePromises = childPagesData.results.map(async (childPage) => {
+            const contentResponse = await fetch(
+                `https://${domain}.atlassian.net/wiki/rest/api/content/${childPage.id}?expand=body.view`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': authHeader,
+                        'Accept': 'application/json',
+                    },
+                }
+            );
+
+            const content = await contentResponse.json();
+            await fetchAttachments(childPage.id);
+
+            return { ...content };
+        });
+
+        const allChildPageContent = await Promise.all(childPagePromises);
+        return NextResponse.json(allChildPageContent);
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
+
+ 
+uploadTask.on('state_changed',
+                        (snapshot) => {
+                            // Upload is in progress
+                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                            console.log(`Upload is ${progress}% done`);
+                        },
+                        (error) => {
+                            // Handle errors during upload
+                            console.error('Error during upload:', error);
+                        },
+                        () => {
+                            // Upload completed successfully
+                            console.log('Upload completed successfully');
+                            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                console.log('File available at', downloadURL);
+                            });
+                        }
+                    );
+ 
+// Upload image to Firebase Storage
+                    const storageRef = ref(storage, `images/${attachment.title}`);
+                    const uploadTask = uploadBytes(storageRef, imageBuffer);
+
+                    uploadTask.on('state_changed',
+                        (snapshot) => {
+                            // Upload is in progress
+                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                            console.log(`Upload is ${progress}% done`);
+                        },
+                        (error) => {
+                            // Handle errors during upload
+                            console.error('Error during upload:', error);
+                        },
+                        () => {
+                            // Upload completed successfully
+                            console.log('Upload completed successfully');
+                            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                console.log('File available at', downloadURL);
+                            });
+                        }
+                    );
+ 
+import { storage } from './firebaseConfig';
+ 
+// Initialize Firebase
+ 
+// Import the functions you need from the SDKs you need
+ 
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+ 
+import sharp from 'sharp';
+ 
