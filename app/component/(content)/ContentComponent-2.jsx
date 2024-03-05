@@ -1,12 +1,14 @@
 "use client"
 import React, { useState, useEffect } from "react";
 import parse from "html-react-parser";
+import { ReplaceAttachment } from "./ReplaceAttachment";
+import { maison } from "@/lib/font/font";
 
 const Tabs = ({ tabs, activeTab, setActiveTab }) => {
   return (
-    <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
+    <div className="mb-4 border-b border-gray-200 dark:border-zinc-700">
       <ul
-        className="flex flex-wrap -mb-px text-gray-600 text-base font-medium text-center"
+        className="flex flex-wrap -mb-px text-gray-600 text-base font-medium text-center dark:text-zinc-100"
         id="myTab"
         data-tabs-toggle="#myTabContent"
         role="tablist"
@@ -14,11 +16,10 @@ const Tabs = ({ tabs, activeTab, setActiveTab }) => {
         {tabs.map((tab, index) => (
           <li key={index} role="presentation">
             <button
-              className={`inline-block p-4 border-b-2 rounded-t-lg ${
-                index === activeTab
-                  ? " border-green-600 text-green-600 font-semibold"
-                  : "border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-              }`}
+              className={`inline-block py-1 px-3  mb-3 rounded-full mx-[2px] ${index === activeTab
+                ? " font-semibold  text-green-700  dark:text-green-500 bg-green-100 dark:bg-green-800/50"
+                : " text-gray-500 font-semibold hover:text-gray-700 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-700"
+                }`}
               id={`tab-${index}`}
               data-tabs-target={`#content-${index}`}
               type="button"
@@ -33,6 +34,9 @@ const Tabs = ({ tabs, activeTab, setActiveTab }) => {
         ))}
       </ul>
     </div>
+
+
+
   );
 };
 
@@ -78,7 +82,7 @@ const TableOfContents = ({ toc }) => {
 };
 
 
-const Content = ({ content }) => {
+const Content = ({ content, id }) => {
   const [tabs, setTabs] = useState([]);
   const [defaultContent, setDefaultContent] = useState("");
   const [activeTab, setActiveTab] = useState(0);
@@ -124,7 +128,7 @@ const Content = ({ content }) => {
 
     const h1Matches = tabContent.match(h1Regex);
     const h2Matches = tabContent.match(h2Regex);
-    
+
     if (h2Matches) {
       h2Matches.forEach((match) => {
         const h2Text = match.match(/<h2.*?>(.*?)<\/h2>/i)[1];
@@ -143,48 +147,47 @@ const Content = ({ content }) => {
   }, [activeTab, tabs]);
 
   return (
-  
-  <div className="relative mx-auto max-w-screen-xl md:flex md:flex-row md:py-0 py-8">
+    <div className="relative   md:flex md:flex-row">
+      <article
+        className=" max-w-[50rem] mr-16 "
+        style={{ minHeight: "calc(100vh - 103px)" }}
+      >
 
-  <article
-    className="mt-4 w-full max-w-[56rem] min-w-0  px-8 py-8 md:px-8 "
-    style={{ minHeight: "calc(100vh - 103px)" }}
-  >
-  
-      <h1 className="text-3xl font-semibold text-gray-700 mb-6">
-        {content.title}
-      </h1>
+        <h1 className={`text-3xl font-semibold text-zinc-700 mb-6 dark:text-zinc-100 tracking-wide ${maison.className}`}>
+          {content.title}
+        </h1>
 
-      {defaultContent && (
-        <div className="prose max-w-none mb-4">
-          {parse(defaultContent)}
+        {defaultContent && (
+          <div className="prose max-w-none mb-4 dark:prose-invert">
+            {/* Replace images with local paths using ReplaceAttachment function */}
+            {parse(ReplaceAttachment(defaultContent, id))}
+          </div>
+        )}
+
+        <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+        <div className="prose max-w-none">
+          {/* Replace images with local paths in the active tab's content */}
+          {parse(
+            ReplaceAttachment(
+              tabs[activeTab]?.content.replace(
+                /<h([1-2])[^>]*>(.*?)<\/h\1>/gi,
+                (match, level, text) => {
+                  const anchorLink = text.toLowerCase().replace(/ /g, "-");
+                  return `<h${level} id="${anchorLink}"${level === "1" ? ' className="hidden"' : ""
+                    }>${text}</h${level}>`;
+                }
+              ) || "",
+              id
+            )
+          )}
         </div>
-      )}
+      </article>
 
-      <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
-  <div className="prose max-w-none">
-  {parse(
-    tabs[activeTab]?.content.replace(
-      /<h([1-2])[^>]*>(.*?)<\/h\1>/gi,
-      (match, level, text) => {
-        const anchorLink = text.toLowerCase().replace(/ /g, "-");
-        return `<h${level} id="${anchorLink}"${level === "1" ? ' class="hidden"' : ''}>${text}</h${level}>`;
-      }
-    ) || ""
-  )}
-</div>
-
-  
-  </article>
-
-  <div className="sticky top-[120px] w-64 h-full overflow-y-auto pr-4">
-    {/* Render Table of Contents using the new component */}
-    {toc.length > 0 && <TableOfContents toc={toc} />}
-  </div>
-
-  </div>
-    
-  
+      <div className="sticky top-[120px] w-64 h-full overflow-y-auto pr-4">
+        {/* Render Table of Contents using the new component */}
+        {toc.length > 0 && <TableOfContents toc={toc} />}
+      </div>
+    </div>
   );
 };
 

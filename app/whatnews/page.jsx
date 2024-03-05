@@ -19,7 +19,7 @@ async function fetchData() {
     const firebaseURL = process.env.FIREBASE_URL
 
     return (
-      <section className='relative max-w-6xl mx-auto px-4 focus:outline-none sm:px-4 md:px-12'>
+      <section className='relative max-w-6xl mx-auto px-4 focus:outline-none sm:px-4 md:px-12 my-14'>
         <div className=" mt-6">
           <h1 className={`mt-4 text-4xl font-bold tracking-normal text-gray-700 dark:text-zinc-100 text-left ${maison.className}`}>What is new</h1>
           <p className="mt-4 text-lg leading-7 text-gray-600 text-left  dark:text-zinc-200">
@@ -53,4 +53,4 @@ async function fetchData() {
   
   
   export default Page
-  export const runtime = 'edge';
+  // export const runtime = 'edge';

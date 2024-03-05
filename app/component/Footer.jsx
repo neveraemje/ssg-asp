@@ -143,7 +143,7 @@ const TooltipFooter = () => {
 
 const Footer = () => {
     return (
-        <footer className="py-14 bg-gray-50 mt-14 dark:bg-zinc-900">
+        <footer className="py-14 border-t border-zinc-100  dark:border-zinc-700">
             <div className="mx-auto max-w-6xl w-full sm:px-4 md:px-12">
                 <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-6">
                     <div>
@@ -255,7 +255,7 @@ const Footer = () => {
 
                 </div>
 
-                <div className=" px-8 py-6 bg-gray-100  md:flex md:items-center md:justify-between sm:rounded-full rounded-lg dark:bg-zinc-800">
+                <div className=" px-8 py-6 bg-gray-100  md:flex md:items-center md:justify-between sm:rounded-full rounded-lg dark:bg-zinc-700">
 
                     <div className=" flex items-center gap-1 sm:flex-row flex-col">
                         <div className="text-sm text-gray-700 sm:text-center dark:text-zinc-200">© 2023 <span>

@@ -51,10 +51,14 @@ module.exports = {
         flip: "flip 6s infinite steps(2, end)",
         rotate: "rotate 3s linear infinite both",
       },
+      fontFamily: {
+			 	secondary: "MaisonNeueExtendedWEB-Bold",
+			 },
     },
   },
   plugins: [
     require("tailwindcss-animate"),
     require('@tailwindcss/typography'),
   ],
+
 }

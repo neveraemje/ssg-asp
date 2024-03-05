@@ -1,12 +1,10 @@
-
-
 import { NextResponse } from "next/server";
 import fetch from "node-fetch";
 
 const username = process.env.NEXT_PUBLIC_ATLASSIAN_USERNAME;
 const apiKey = process.env.NEXT_PUBLIC_ATLASSIAN_API_KEY;
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
-const page_id = process.env.NEXT_PUBLIC_ID_COMPONENT
+const page_id = process.env.NEXT_PUBLIC_ID_FOUNDATION
 const authHeader = `Basic ${Buffer.from(`${username}:${apiKey}`).toString("base64")}`;
 
 
@@ -33,13 +31,13 @@ async function fetchChildPages() {
 }
 
 
-
 export async function getData() {
   try {
     const childPages = await fetchChildPages();
     const childPagePromises = childPages.map(async (childPage) => {
       const contentResponse = await fetch(
         `https://${domain}.atlassian.net/wiki/rest/api/content/${childPage.id}?expand=body.view`,
+        // `https://${domain}.atlassian.net/wiki/api/v2/pages/${childPage.id}?body-format=storage`,
         {
           method: 'GET',
           headers: {

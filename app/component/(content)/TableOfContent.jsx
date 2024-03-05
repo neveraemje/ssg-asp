@@ -27,11 +27,11 @@ const TableOfContents = ({ content }) => {
     const toc = headings.map((heading) => (
       <li key={heading.id}>
         {heading.level === "h1" ? (
-          <a className="list-bar pl-0" href={`#${heading.id}`} onClick={(e) => handleItemClick(e, heading.id)}>
+          <a className="toc pl-0" href={`#${heading.id}`} onClick={(e) => handleItemClick(e, heading.id)}>
             {heading.title}
           </a>
         ) : (
-          <a className="list-bar pl-4 block" href={`#${heading.id}`}onClick={(e) => handleItemClick(e, heading.id)}>
+          <a className="toc pl-4 block" href={`#${heading.id}`}onClick={(e) => handleItemClick(e, heading.id)}>
             {heading.title}
           </a>
         )}
@@ -62,7 +62,7 @@ const TableOfContents = ({ content }) => {
   };
 
   return (
-    <div className="sticky top-[120px] hidden h-[calc(100vh-121px)] w-[240px] md:flex md:shrink-0 md:flex-col md:justify-between">
+    <div className="sticky top-[120px] hidden h-[calc(100vh-121px)] w-64 md:flex md:shrink-0 md:flex-col md:justify-between">
       <div className="relative overflow-hidden">
         <nav className="styled-scrollbar flex h-[calc(100vh-200px)] flex-col overflow-y-scroll pr-2 pb-4">
           <h2 className="title-bar">

@@ -1,10 +1,23 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Add your custom font */
+@font-face {
+  font-family: 'MaisonNeueExtendedWEB-Bold';
+  src: url('../lib/MaisonNeueExtendedWEB-Bold.woff2') format('woff2');
+}
+
+
 :root {
   --primary-color: #0070f3;
 }
+
+p{
+  
+}
+
 
 html,
 body {
@@ -37,11 +50,13 @@ body {
 }
 
 .toggle-marker.open::before {
-  content: '▶'; /* Closed marker */
+  content: '▶';
+  /* Closed marker */
 }
 
 .toggle-marker.closed::before {
-  content: '▼'; /* Open marker */
+  content: '▼';
+  /* Open marker */
 }
 
 .toggle-content {
@@ -54,41 +69,60 @@ body {
 
 
 .active-link {
-  @apply text-green-600 font-semibold dark:text-green-500 /* Set your desired active link color */
+  @apply text-green-600 font-semibold dark:text-green-500
+  /* Set your desired active link color */
 }
-.nav-menu{
+
+.nav-menu {
   @apply text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-600 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent;
 }
 
-.list-bar {
-  @apply text-base font-[400] text-zinc-700 leading-normal py-1 hover:text-gray-800 cursor-pointer dark:text-zinc-100;
+.toc {
+  @apply text-sm font-[400] text-zinc-500 leading-normal py-1 hover:text-zinc-900 cursor-pointer dark:text-zinc-400 dark:hover:text-zinc-100;
 }
 
+
+
+/* .sidebar-item {
+ @apply text-sm items-center p-2 text-zinc-800 rounded-xl dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group cursor-pointer my-[2px];
+} */
+
+.sidebar-item {
+  @apply text-sm cursor-pointer p-2 rounded-xl text-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700  dark:text-zinc-200 my-1;
+  }
+.sidebar-active {
+  @apply text-sm cursor-pointer p-2 rounded-xl font-semibold text-green-800 bg-green-100 hover:bg-zinc-100 dark:bg-green-800  dark:text-zinc-200;
+  }
+
+
 .link {
-  @apply text-base leading-5 cursor-pointer block border-l pl-4 -ml-px  py-1 border-transparent
-  text-gray-600 hover:border-gray-500 hover:text-gray-800 dark:text-zinc-200;
+@apply text-base leading-5 cursor-pointer block border-l pl-4 -ml-px py-1 border-transparent text-gray-600 hover:border-gray-500 hover:text-gray-800 dark:text-zinc-200;
 }
 
 .fixed-sidebar {
   position: fixed;
-  top: 92px; /* Adjust the top position as needed */
+  top: 92px;
+  /* Adjust the top position as needed */
   left: 0;
   height: calc(100vh - 121px);
   width: 284px;
   display: block;
-  z-index: 1; /* Adjust the z-index to ensure it appears above other content if needed */
-  background-color: #fff; /* Add a background color if needed */
-  overflow-y: scroll; /* Add vertical scroll if the content overflows */
+  z-index: 1;
+  /* Adjust the z-index to ensure it appears above other content if needed */
+  background-color: #fff;
+  /* Add a background color if needed */
+  overflow-y: scroll;
+  /* Add vertical scroll if the content overflows */
 }
 
 .hexa-preview {
   @apply inline-block w-10 h-10 rounded-full border-2 border-zinc-100 dark:border-zinc-800;
-  
+
 }
 
 .gradient-preview {
   @apply inline-block w-20 h-8 rounded-full border-2 border-zinc-100 dark:border-zinc-800;
-  
+
 }
 
 .output-block {
@@ -102,7 +136,6 @@ body {
 
 .prose :where(strong):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply dark:text-zinc-300 text-gray-700
-
 }
 
 /* .prose :where(th):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
@@ -113,56 +146,49 @@ body {
 }
 
 .prose :where(tbody tr):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
- 
+
   @apply dark:border-b-zinc-700
 }
 
-.prose :where(tbody td):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+.prose :where(tbody td):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply align-top text-base;
 }
-.prose :where(tbody td, tfoot td):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+
+.prose :where(tbody td, tfoot td):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply pt-1 pr-4 pb-1 pl-4;
 }
 
 .prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply mt-2 mb-2 text-gray-700 text-base leading-[1.8] font-normal dark:text-zinc-300 ;
-  
+  @apply mt-2 mb-2 text-gray-700 text-base leading-[1.8] font-normal dark:text-zinc-300;
+
 }
 
 .prose :where(img):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply rounded-xl border mt-4 border-gray-100 w-full h-full bg-cover dark:border-zinc-900;
-  
+
 }
 
 .prose :where(h1):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
- 
+  @apply text-3xl font-semibold leading-8 mb-4 mt-8 text-gray-700 dark:text-zinc-100 font-secondary;
 
-  @apply text-3xl font-semibold leading-8 mb-4 mt-8 text-gray-700 dark:text-zinc-100;
-  
 }
+
 .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply text-2xl font-semibold mt-10 mb-4  text-gray-700 dark:text-zinc-100;
-  
+  @apply text-2xl font-semibold mt-10 mb-4 text-gray-700 dark:text-zinc-100 font-secondary;
+
 }
+
 .prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply mt-6 font-semibold text-lg  text-gray-700 dark:text-zinc-100;
-  
+  @apply mt-6 font-semibold text-lg text-gray-700 dark:text-zinc-100 font-secondary;
+
 }
 
 .prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply dark:text-zinc-200 dark:bg-zinc-700/30 dark:border-zinc-700
-  
-  font-light 
-  text-[13px]
-text-gray-800
-bg-gray-100
-border-gray-200 
-  px-[2px] py-[2px]
-  border 
-  rounded-md;
-  
+  @apply dark:text-zinc-200 dark:bg-zinc-700/30 dark:border-zinc-700 font-light text-[13px] text-gray-800 bg-gray-100 border-gray-200 px-[2px] py-[2px] border rounded-md;
+
 
 }
+
 .prose :where(code):not(:where([class~=not-prose] *)):before {
   @apply content-none
 }
@@ -179,30 +205,15 @@ border-gray-200
 
 
 .container {
- 
+
   margin: 0 auto;
   padding: 0 1rem;
   @apply max-w-screen-xl;
 }
+
 /* hover:text-gray-1000 relative flex w-full cursor-pointer items-center justify-between rounded-md py-1 pl-2 text-left te text-gray-900 */
 .nav-item {
-  @apply 
-  relative 
-  flex 
-  w-full 
-  cursor-pointer 
-  items-center 
-  justify-between 
-  rounded-md 
-  py-2 
-  pl-2 
-  text-left 
-  text-sm
-text-gray-700 
-  border-transparent
-hover:text-gray-950 
-hover:border-gray-950
-dark:text-zinc-100;
+  @apply relative flex w-full cursor-pointer items-center justify-between rounded-md py-2 pl-2 text-left text-sm text-gray-700 border-transparent hover:text-gray-950 hover:border-gray-950 dark:text-zinc-100;
 }
 
 
@@ -211,7 +222,7 @@ dark:text-zinc-100;
 }
 
 .sidebar {
-@apply sticky top-[121px] hidden h-[calc(100vh-121px)] w-[284px] md:flex md:shrink-0 md:flex-col md:justify-between;
+  @apply sticky top-[121px] hidden h-[calc(100vh-121px)] w-[284px] md:flex md:shrink-0 md:flex-col md:justify-between;
 }
 
 .loader {
@@ -242,7 +253,8 @@ dark:text-zinc-100;
 /* Style for individual cells within the two-equal layout */
 .columnLayout.two-equal .cell.normal {
   flex: 1;
-  margin-right: 10px; /* Add margin between columns */
+  margin-right: 10px;
+  /* Add margin between columns */
 }
 
 /* Style for inner cells (h3 elements) within the two-equal layout */
@@ -256,11 +268,11 @@ dark:text-zinc-100;
 }
 
 .columnLayout.two-equal .cell.normal .innerCell img {
- @apply mb-3 mt-6;
+  @apply mb-3 mt-6;
 }
 
 ::selection {
-@apply bg-sky-500 text-white;
+  @apply bg-sky-500 text-white;
 }
 
 
@@ -278,10 +290,12 @@ dark:text-zinc-100;
   from {
     transform: rotate(360deg);
   }
+
   to {
     transform: rotate(0deg);
   }
 }
+
 .rotating {
   animation: rotating 12s linear infinite;
 }
@@ -297,105 +311,107 @@ dark:text-zinc-100;
   width: 100%;
   height: 100%;
   position: absolute;
-  transition: transform 0.5s ease; /* Adjust the transition duration for moderate speed */
+  transition: transform 0.5s ease;
+  /* Adjust the transition duration for moderate speed */
 }
 
 .bg-move.active {
-  transform: translateX(100%); /* Adjust the animation direction as needed */
+  transform: translateX(100%);
+  /* Adjust the animation direction as needed */
 }
 
 input:checked {
   @apply bg-green-700
-  }
+}
 
-  input:checked ~ span:last-child {
-    --tw-translate-x: 1.2rem; /* translate-x-7 */
-  }
-
-
-
+input:checked~span:last-child {
+  --tw-translate-x: 1.2rem;
+  /* translate-x-7 */
+}
 
 
 
 
 
-  /* Floating button */
-  .switches-container {
-    @apply w-[188px] h-11  flex p-0 relative bg-white shadow  leading-10 rounded-full mx-auto mt-4;
-  
-    /* @apply w-[188px] h-11 p-2 bg-white rounded-[22px] shadow justify-center items-center gap-1 inline-flex rel */
-  }
-  
-  /* input (radio) for toggling. hidden - use labels for clicking on */
-  .switches-container input {
-    @apply hidden absolute top-0
-  }
-  
-  /* labels for the input (radio) boxes - something to click on */
-  .switches-container label {
-    @apply w-full py-1 m-2 text-center cursor-pointer text-neutral-500 text-sm font-semibold rounded-full h-[28px] hover:bg-neutral-100
-     
-  }
-  
-  /* switch highlighters wrapper (sliding left / right) 
+
+
+
+/* Floating button */
+.switches-container {
+  @apply w-[188px] h-11 flex p-0 relative bg-white shadow leading-10 rounded-full mx-auto mt-4;
+
+  /* @apply w-[188px] h-11 p-2 bg-white rounded-[22px] shadow justify-center items-center gap-1 inline-flex rel */
+}
+
+/* input (radio) for toggling. hidden - use labels for clicking on */
+.switches-container input {
+  @apply hidden absolute top-0
+}
+
+/* labels for the input (radio) boxes - something to click on */
+.switches-container label {
+  @apply w-full py-1 m-2 text-center cursor-pointer text-neutral-500 text-sm font-semibold rounded-full h-[28px] hover:bg-neutral-100
+}
+
+/* switch highlighters wrapper (sliding left / right) 
       - need wrapper to enable the even margins around the highlight box
   */
-  .switch-wrapper {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 50%;
-      padding: 0.15rem;
-      z-index: 3;
-      transition: transform .5s cubic-bezier(.77, 0, .175, 1);
-      /* transition: transform 1s; */
-  }
-  
-  /* switch box highlighter */
-  .switch {
-    @apply mx-1.5 my-1.5 w-auto rounded-full h-[28px] bg-green-700 justify-center
-   
-  }
-  
-  .switch div {
-    @apply w-full text-center opacity-0 block text-white transition-opacity duration-200 ease-in-out delay-100 absolute top-0 left-0 text-sm font-semibold py-[12px]
-    
-  }
-  
-  /* slide the switch box from right to left */
-  .switches-container input:nth-of-type(1):checked~.switch-wrapper {
-      transform: translateX(0%);
-  }
-  
-  /* slide the switch box from left to right */
-  .switches-container input:nth-of-type(2):checked~.switch-wrapper {
-      transform: translateX(100%);
-  }
-  
-  /* toggle the switch box labels - first checkbox:checked - show first switch div */
-  .switches-container input:nth-of-type(1):checked~.switch-wrapper .switch div:nth-of-type(1) {
-      opacity: 1;
-  }
-  
-  /* toggle the switch box labels - second checkbox:checked - show second switch div */
-  .switches-container input:nth-of-type(2):checked~.switch-wrapper .switch div:nth-of-type(2) {
-      opacity: 1;
-  }
-  
+.switch-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  padding: 0.15rem;
+  z-index: 3;
+  transition: transform .5s cubic-bezier(.77, 0, .175, 1);
+  /* transition: transform 1s; */
+}
 
- /* Ring logo rotate */
- .ring-text {
+/* switch box highlighter */
+.switch {
+  @apply mx-1.5 my-1.5 w-auto rounded-full h-[28px] bg-green-700 justify-center
+}
+
+.switch div {
+  @apply w-full text-center opacity-0 block text-white transition-opacity duration-200 ease-in-out delay-100 absolute top-0 left-0 text-sm font-semibold py-[12px]
+}
+
+/* slide the switch box from right to left */
+.switches-container input:nth-of-type(1):checked~.switch-wrapper {
+  transform: translateX(0%);
+}
+
+/* slide the switch box from left to right */
+.switches-container input:nth-of-type(2):checked~.switch-wrapper {
+  transform: translateX(100%);
+}
+
+/* toggle the switch box labels - first checkbox:checked - show first switch div */
+.switches-container input:nth-of-type(1):checked~.switch-wrapper .switch div:nth-of-type(1) {
+  opacity: 1;
+}
+
+/* toggle the switch box labels - second checkbox:checked - show second switch div */
+.switches-container input:nth-of-type(2):checked~.switch-wrapper .switch div:nth-of-type(2) {
+  opacity: 1;
+}
+
+
+/* Ring logo rotate */
+.ring-text {
   animation: rotate 10s linear infinite;
 }
 
 @keyframes rotate {
   from {
     transform: rotate(-360deg);
-  } to {
+  }
+
+  to {
     transform: rotate(0deg);
   }
 }
-  
+
 
 
 /* SLIDER */
@@ -406,7 +422,7 @@ input:checked {
 }
 
 #item {
-  @apply bg-white w-[64px] h-[48px] rounded-full pl-2 mx-1 bg-[url('/skip.svg')] hover:cursor-move shadow-md bg-center bg-no-repeat z-[999] touch-none select-none justify-self-start ;
+  @apply bg-white w-[64px] h-[48px] rounded-full pl-2 mx-1 bg-[url('/skip.svg')] hover:cursor-move shadow-md bg-center bg-no-repeat z-[999] touch-none select-none justify-self-start;
 
   background-size: 50% 50%;
 
@@ -419,12 +435,21 @@ input:checked {
 
 
 }
-.track_text--before { opacity: 1; }
-.track_text--after { opacity: 0; }
-.track_text--end { opacity: 0; }
+
+.track_text--before {
+  opacity: 1;
+}
+
+.track_text--after {
+  opacity: 0;
+}
+
+.track_text--end {
+  opacity: 0;
+}
 
 .animate {
-  transition: 
+  transition:
     transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
     opacity 0.5s ease-in,
     background-color 0.5s ease-in;

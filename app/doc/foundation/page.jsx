@@ -1,39 +1,71 @@
-
-import PageFoundation from "@/app/component/PageFoundation";
-import SideBar from "@/app/component/Sidebar";
+import SideBar from "@/app/component/(content)/Sidebar";
 import { TwoSidesLayout } from "@/app/component/ui/Layout";
 import { Suspense } from "react";
+import Card from "@/app/component/ui/Card";
+import { maison } from "@/lib/font/font";
 
 async function fetchData() {
   const URL = process.env.NEXT_PUBLIC_URL;
   const response = await fetch(`${URL}/api/api-foundation`, {
-    next: { revalidate: 0 }
+    next: { revalidate: 3600 }
   });
   const data = await response.json();
   return data;
+}
+
+
+const PageContent = async () => {
+  const data = await fetchData();
+  const firebaseURL = process.env.FIREBASE_URL
+  return (
+    <section className="">
+      <div>
+        <h1 className={`text-4xl font-bold tracking-normal text-gray-700 dark:text-zinc-100 text-left ${maison.className}`}>Foundation</h1>
+        <p className="mt-4 text-lg leading-7 text-gray-600 text-left  dark:text-zinc-200">
+        Foundational elements with specific tokens like color, typography, and spacing have been established in our design system, serving as the basis for our product screens and scalable design components.
+        </p>
+      </div>
+
+
+
+      <div className="relative mt-10 md:mt-8">
+        <ul className=" grid grid-cols-[repeat(auto-fill, minimax(12rem,1fr))] gap-x-8 gap-y-10 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2">
+          {data.map((data) => (
+            <li key={data.id}>
+              <Card
+                title={data.title}
+                thumbnail={`${firebaseURL}/o/images%2F${data.id}%2Fcover.png?alt=media`}
+                path={`/doc/foundation/${data.id}`}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+    </section>
+  )
 }
 
 const Page = async () => {
   const data = await fetchData();
 
   return (
-    <TwoSidesLayout>
-      <TwoSidesLayout.Left>
-        <SideBar title={data} />
-      </TwoSidesLayout.Left>
 
-      <TwoSidesLayout.Middle>
-        <Suspense>
-        <div className=" pt-6">
-          <PageFoundation />
-        </div>
-        </Suspense>
 
-      </TwoSidesLayout.Middle>
+<div className="mx-auto flex max-w-[90rem]">
+<aside className="flex flex-col w-64 border-r border-zinc-100 dark:border-zinc-700">
 
-    </TwoSidesLayout>
+  <SideBar title={data} />
+
+</aside>
+<article className="w-full  my-12 mx-16">
+  <Suspense>
+    <PageContent/>
+  </Suspense>
+</article>
+</div>
   );
 };
 
 export default Page;
-export const runtime = 'edge';
+// export const runtime = 'edge';

@@ -1,12 +1,26 @@
-import { Inter } from 'next/font/google';
+
+import localFont from 'next/font/local'
 import Header from '@/app/component/Header';
 import Footer from '@/app/component/Footer';
 import Provider from './component/(theme)/Provider';
 import './globals.css'
+import { Inter } from 'next/font/google';
+import { Poppins } from 'next/font/google';
+import { maison } from '@/lib/font/font';
 
 
 const inter = Inter({
-  subsets: ['latin']
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
+
+// Font files can be colocated inside of `app`
+const maisun = localFont({
+  src: '../lib/font/MaisonNeueExtendedWEB-Bold.woff2',
+  display: 'swap',
+  variable: '--font-maisun',
 })
 
 export const metadata = {

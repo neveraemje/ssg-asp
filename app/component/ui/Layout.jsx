@@ -26,9 +26,9 @@
 // components/Layout.jsx
 import React from 'react';
 
-const Left = ({ children }) => <div className="w-1/5 p-4 hidden sm:block">{children}</div>;
-const Middle = ({ children }) => <div className="flex-grow px-6">{children}</div>;
-const Right = ({ children }) => <div className="w-1/5 p-4 hidden sm:block">{children}</div>;
+const Left = ({ children }) => <div className=" w-[320px] hidden sm:block border-r border-zinc-100 dark:border-zinc-700">{children}</div>;
+const Middle = ({ children }) => <div className="flex-grow w-full">{children}</div>;
+const Right = ({ children }) => <div className="p-4 w-1/6 hidden sm:block">{children}</div>;
 
 const ThreeSidesLayout = ({ children }) => {
   const [left, middle, right] = React.Children.toArray(children);

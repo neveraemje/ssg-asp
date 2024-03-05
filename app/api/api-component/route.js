@@ -4,7 +4,7 @@ import fetch from "node-fetch";
 const username = process.env.NEXT_PUBLIC_ATLASSIAN_USERNAME;
 const apiKey = process.env.NEXT_PUBLIC_ATLASSIAN_API_KEY;
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
-const page_id = process.env.NEXT_PUBLIC_ID_FOUNDATION
+const page_id = process.env.NEXT_PUBLIC_ID_COMPONENT
 const authHeader = `Basic ${Buffer.from(`${username}:${apiKey}`).toString("base64")}`;
 
 
@@ -60,7 +60,7 @@ export async function getData() {
   }
 }
 
-export const revalidate = 0;
+export const revalidate = 3600;
 export async function GET(req, res) {
   try {
     const pageContent = await getData();

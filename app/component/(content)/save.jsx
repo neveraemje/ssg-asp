@@ -28,7 +28,7 @@ const Page = async ({ params: { id } }) => {
 
     return (
        <div className="mx-auto flex max-w-[90rem]">
-       <aside className="flex flex-col w-64 border-r border-zinc-100 dark:border-zinc-700">
+       <aside className="flex flex-col w-64 border-r border-zinc-100">
  
          <SideBar title={data} />
  

@@ -1,7 +1,7 @@
 
 import parse from "html-react-parser";
 import React from "react";
-import { ReplaceAttachment } from "@/app/component/ReplaceAttachment";
+import { ReplaceAttachment } from "@/app/component/(content)/ReplaceAttachment";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { maison } from "@/lib/font/font";
@@ -15,7 +15,6 @@ async function fetchData() {
     const data = await response.json();
     return data;
 }
-
 
 
 const Content = ({ content, id }) => {
@@ -112,3 +111,12 @@ const Page = async ({ params: { id } }) => {
 
 export default Page;
 // export const runtime = 'edge';
+
+
+export async function generateStaticParams() {
+    const data = await fetchData();
+  
+    return data.map(content => ({
+      id: content.id,
+    }));
+  }

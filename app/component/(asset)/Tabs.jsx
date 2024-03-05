@@ -80,15 +80,15 @@ function Tabs() {
       </div>
     </div>
 
-//   <div class="switches-container left-[150px] top-[18px]">
+//   <div className="switches-container left-[150px] top-[18px]">
 //   <input type="radio" id="switchMonthly" name="switchPlan" value="Monthly" checked="checked" />
 //   <input type="radio" id="switchYearly" name="switchPlan" value="Yearly" />
 //   <label for="switchMonthly">
 
 //     Delivery</label>
 //   <label for="switchYearly">Pickup</label>
-//   <div class="switch-wrapper">
-//     <div class="switch">
+//   <div className="switch-wrapper">
+//     <div className="switch">
 //       <div>
 //       <svg
 //                 width="16"
