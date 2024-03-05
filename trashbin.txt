@@ -1,0 +1,188 @@
+dark:bg-green-800
+ 
+border-transparent
+ 
+border-green-600
+ 
+border-b-2
+ 
+ rounded-xl
+ 
+
+const parseHexColors = (text) => {
+  const colorRegex = /(?:#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})|hsla?\((?:\s*\d+%?(?:\s*,\s*\d+%?(?:\s*,\s*\d+%?(?:\s*,\s*(?:0?\.\d+|1(?:\.0+)?))?)?)?)?\))|linear-gradient\([\s\S]*?\)/g;
+  return text.replace(colorRegex, (match) => {
+    if (match.startsWith("#")) {
+      // Hex color
+      return `<span className="hexa-preview" style="background-color: ${match};"></span>`;
+    } else if (match.startsWith("hsl")) {
+      // HSL or HSLA color
+      return `<span className="hexa-preview" style="background-color: ${match};"></span>`;
+    } else if (match.startsWith("linear-gradient")) {
+      // Gradient color
+      return `<span className="gradient-preview" style="background: ${match};"></span>`;
+    }
+    return match; // Return unchanged if it doesn't match any pattern
+  });
+};
+ 
+2835614833
+ 
+h1{
+
+  @apply font-secondary
+  
+}
+ 
+ ${maisun.className}
+ 
+font-family: var(--font-inter);
+ 
+.ib/font/MaisonNeueExtendedWEB-Bold.woff2'
+ 
+@apply
+ 
+  font-weight: bold;
+  font-style: normal;
+ 
+font-family: var(--font-maisun);
+ 
+ ${inter.className} ${maisun.className}
+ 
+			 	display: ["var(--font-maisun)"],
+ 
+["var(--font-inter)"]
+ 
+  font-family: var(--font-inter);
+ 
+
+
+ 
+@font-face {
+  font-family: 'maison';
+  src: url('/lib/MaisonNeueExtendedWEB-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+ 
+'/MaisonNeueExtendedWEB-Bold.woff2'
+ 
+import { Poppins } from 'next/font/google';
+ 
+// Font files can be colocated inside of `app`
+const maisun = localFont({
+  src: '/MaisonNeueExtendedWEB-Bold.woff2',
+  display: 'swap',
+})
+
+ 
+whitespace-nowrap
+ 
+text-2xl
+ 
+self-centertext-lg
+ 
+self-centertext-lg
+ 
+font-extrabold
+ 
+relative   md:flex md:flex-row md:py-0 py-8
+ 
+    </div>
+ 
+<div className="relative   md:flex md:flex-row md:py-0 py-8">
+ 
+mx-auto
+ 
+max-w-3xl
+ 
+ py-8
+ 
+<nav className="flex flex-col w-64 my-12">
+         <TableOfContents content={selectedContent} />
+       </nav>
+ 
+Foundational elements with specific tokens like color, typography, and spacing have been established in our design system, serving as the basis for our product screens and scalable design components.
+ 
+import { TwoSidesLayout } from "@/app/component/ui/Layout";
+ 
+import { ThreeSidesLayout } from "@/app/component/ui/Layout";
+ 
+mb-12
+ 
+ mx-auto 
+ 
+max-w-4xl
+ 
+    // <TwoSidesLayout>
+    //   <TwoSidesLayout.Left>
+     
+    //       <SideBar title={data} />
+       
+    //   </TwoSidesLayout.Left>
+
+    //   <TwoSidesLayout.Middle>
+    //     <Suspense>
+    //       <div className=" pt-6">
+    //         <PageContent />
+    //       </div>
+    //     </Suspense>
+
+    //   </TwoSidesLayout.Middle>
+
+    // </TwoSidesLayout>
+ 
+content={selectedData} id={id}
+ 
+<div className="">
+      <PreviousNextLinks title={data} />
+    </div>
+ 
+<nav className="flex flex-col w-64 my-12">
+  <TableOfContents content={selectedData} />
+</nav>
+ 
+   {/* <TableOfContents content={selectedData} /> */}
+        
+ 
+    // <ThreeSidesLayout>
+    //   <ThreeSidesLayout.Left>
+    //     <SideBar title={data} />
+    //   </ThreeSidesLayout.Left>
+
+    //   <ThreeSidesLayout.Middle>
+    //   <Suspense>
+    //   <Content content={selectedData} id={id} />
+    //     <div className="max-w-2xl mx-auto">
+    //     <PreviousNextLinks title={data} />
+    //     </div>
+    //     </Suspense>
+    //   </ThreeSidesLayout.Middle>
+
+    //   <ThreeSidesLayout.Right>
+    //   <TableOfContents content={selectedData} />
+    //   </ThreeSidesLayout.Right>
+    // </ThreeSidesLayout>
+ 
+</div>
+ 
+<div className=" my-12">
+ 
+sticky top-0
+ 
+op-[120px]
+ 
+my-16
+ 
+ bg-purple-200
+ 
+ bg-green-100
+ 
+ bg-yellow-100
+ 
+min-w-0 py-8 max-w-2xl mx-auto
+ 
+ w-[240px] 
+ 
+ w-[240px] 
+ 
