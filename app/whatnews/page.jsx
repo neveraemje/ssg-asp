@@ -5,7 +5,7 @@ import { maison } from '../../lib/font/font';
 import { Suspense } from 'react';
 
 async function fetchData() {
-    const URL = process.env.NEXT_PUBLIC_URL;
+  const URL = "https://asphalt-website-okay.vercel.app";
     const response = await fetch(`${URL}/api/news`, {
       next: { revalidate: 3600 }
     });
