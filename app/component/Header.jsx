@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ModeToggle from "./(theme)/ModeToggle";
 import { maison } from "@/lib/font/font";
+import Image from "next/image";
 
 const Header = () => {
   const pathname = usePathname();
@@ -42,7 +43,8 @@ const Header = () => {
       
       <div className="mx-auto flex max-w-[90rem] flex-wrap items-center justify-between py-4">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src="/asphalt.svg" className="h-8" alt="asphalt Logo" />
+          <Image src="/asphalt.svg" width={32} height={32} alt="asphalt logo"/>
+          {/* <img src="/asphalt.svg" className="h-8" alt="asphalt Logo" /> */}
           <span className={`font-bold tracking-wide text-xl text-zinc-800  dark:text-zinc-100 ${maison.className}`}>Asphalt Design System</span>
           <span className=" bg-green-600 px-3 py-1 rounded-full text-sm font-medium text-zinc-50 dark:bg-green-500 dark:text-zinc-800">Aloha</span>
         </a>
