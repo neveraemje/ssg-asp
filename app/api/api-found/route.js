@@ -4,7 +4,7 @@ import fetch from "node-fetch";
 const username = process.env.NEXT_PUBLIC_ATLASSIAN_USERNAME;
 const apiKey = process.env.NEXT_PUBLIC_ATLASSIAN_API_KEY;
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
-const page_id = process.env.NEXT_PUBLIC_ID_FOUNDATION
+const page_id = "2832007454"
 const authHeader = `Basic ${Buffer.from(`${username}:${apiKey}`).toString("base64")}`;
 
 

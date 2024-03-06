@@ -9,6 +9,7 @@ import { maison } from "@/lib/font/font";
 
 
 async function fetchData() {
+  //const URL = "https://asphalt-website-okay.vercel.app";
   const URL = process.env.NEXT_PUBLIC_URL;
   const response = await fetch(`${URL}/api/api-foundation`, {
     next: { revalidate: 3600 }
@@ -61,12 +62,16 @@ const Content = ({ content, id }) => {
 
 
 export default async function Page({ params: { id } }) {
-  const data = await fetchData();
-  const selectedData = data.find(content => content.id === id);
+  try {
+    const data = await fetchData();
+    const selectedData = data.find((item) => item.id === id);
 
-  return (
+    if (!selectedData) {
+      throw new Error(`Content with ID ${id} not found.`);
+    }
 
-    <div className="mx-auto flex max-w-[90rem]">
+    return (
+      <div className="mx-auto flex max-w-[90rem]">
       <aside className="flex flex-col w-64 border-r border-zinc-100 dark:border-zinc-700">
 
         <SideBar title={data} />
@@ -84,8 +89,14 @@ export default async function Page({ params: { id } }) {
         <TableOfContents content={selectedData} />
       </nav>
     </div>
+    
 
-  );
+     
+    );
+  } catch (error) {
+    console.error("Page loading error:", error);
+    
+  }
 }
 
 
