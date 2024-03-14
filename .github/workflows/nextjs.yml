@@ -30,28 +30,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Read a variable domain
-        run: echo "my public domain is ${{ vars.NEXT_PUBLIC_DOMAIN" }}"
-      
+        run: echo "my public domain is ${{ vars.NEXT_PUBLIC_DOMAIN }}"
       - name: Read a variable public url
-        run: echo "my public domain is ${{ vars.NEXT_PUBLIC_URL" }}"
+        run: echo "my public domain is ${{ vars.NEXT_PUBLIC_URL }}"
 
       - name: Read a variable firebase ID Getting
-        run: echo "my public domain is ${{ vars.NEXT_PUBLIC_ID_GETTING" }}"
+        run: echo "my public domain is ${{ vars.NEXT_PUBLIC_ID_GETTING }}"
       
       - name: Read a variable firebase ID Foundation
-        run: echo "my public domain is ${{ vars.NEXT_PUBLIC_ID_FOUNDATION" }}"
+        run: echo "my public domain is ${{ vars.NEXT_PUBLIC_ID_FOUNDATION }}"
 
       - name: Read a variable firebase ID Component
-        run: echo "my public domain is ${{ vars.NEXT_PUBLIC_ID_COMPONENT" }}"
+        run: echo "my public domain is ${{ vars.NEXT_PUBLIC_ID_COMPONENT }}"
 
       - name: Read a variable firebase ID News
-        run: echo "my public domain is ${{ vars.NEXT_PUBLIC_ID_NEWS" }}"
+        run: echo "my public domain is ${{ vars.NEXT_PUBLIC_ID_NEWS }}"
 
        - name: Unset secret email
-        run: echo "my email secret is ${{ secrets.NEXT_PUBLIC_ATLASSIAN_USERNAME" }}"
+        run: echo "my email secret is ${{ secrets.NEXT_PUBLIC_ATLASSIAN_USERNAME }}"
 
        - name: Unset secret key
-        run: echo "my public domain is ${{ secrets.NEXT_PUBLIC_ATLASSIAN_API_KEY" }}"
+        run: echo "my public domain is ${{ secrets.NEXT_PUBLIC_ATLASSIAN_API_KEY }}"
 
   Ï
       - name: Checkout
