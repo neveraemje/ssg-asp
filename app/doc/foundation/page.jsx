@@ -5,13 +5,13 @@ import Card from "@/app/component/ui/Card";
 import { maison } from "@/lib/font/font";
 
 async function fetchData() {
-  const URL = "https://asphalt-website-okay.vercel.app";
-  //const URL = process.env.NEXT_PUBLIC_URL;
-  const response = await fetch(`${URL}/api/api-foundation`, {
-    next: { revalidate: 3600 }
-  });
-  const data = await response.json();
-  return data;
+  const URL = "https://asphalt-ds.vercel.app";
+ //const URL = process.env.NEXT_PUBLIC_URL;
+ const response = await fetch(`${URL}/api/api-foundation`, {
+   next: { revalidate: 3600 }
+ });
+ const data = await response.json();
+ return data;
 }
 
 

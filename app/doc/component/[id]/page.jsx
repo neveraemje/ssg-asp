@@ -8,7 +8,7 @@ import Content from "@/app/component/(content)/ContentComponent-2";
 
 async function fetchData() {
    //const URL = process.env.NEXT_PUBLIC_URL;
-   const URL = "https://asphalt-website-okay.vercel.app";
+   const URL = "https://asphalt-ds.vercel.app";
   const response = await fetch(`${URL}/api/api-component`, {
     next: { revalidate: 3600 }
   });
