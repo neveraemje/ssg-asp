@@ -9,8 +9,8 @@ import { maison } from "@/lib/font/font";
 
 
 async function fetchData() {
-  //const URL = "https://asphalt-website-okay.vercel.app";
-  const URL = process.env.NEXT_PUBLIC_URL;
+const URL = "https://asphalt-website-okay.vercel.app";
+  // const URL = process.env.NEXT_PUBLIC_URL;
   const response = await fetch(`${URL}/api/api-foundation`, {
     next: { revalidate: 3600 }
   });

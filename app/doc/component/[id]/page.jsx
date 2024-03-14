@@ -7,8 +7,8 @@ import { TwoSidesLayout } from "@/app/component/ui/Layout";
 import Content from "@/app/component/(content)/ContentComponent-2";
 
 async function fetchData() {
-   const URL = process.env.NEXT_PUBLIC_URL;
-  // const URL = "https://asphalt-website-okay.vercel.app";
+   //const URL = process.env.NEXT_PUBLIC_URL;
+   const URL = "https://asphalt-website-okay.vercel.app";
   const response = await fetch(`${URL}/api/api-component`, {
     next: { revalidate: 3600 }
   });
